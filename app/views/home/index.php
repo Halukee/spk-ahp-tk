@@ -1,11 +1,23 @@
-<div class="container">
-    <div class="jumbotron mt-4">
-      <h1 class="display-4">Selamat Datang di Website Saya!</h1>
-      <p class="lead">Halo, nama saya <?= $data['nama']; ?></p>
-      <hr class="my-4">
-      <p>It uses utility classes for typography and spacing to space content out within the larger container.</p>
-      <a class="btn btn-primary btn-lg" href="#" role="button">Learn more</a>
+<form action="<?= BASEURL ?>/public/template/AdminLTE-3.2.0/index3.html" method="post" id="form-submit">
+  <div class="form-group">
+    <input type="text" name="email_username_users" class="form-control" placeholder="Email atau Username">
+  </div>
+  <div class="form-group mb-3">
+    <input type="password" name="password_users" class="form-control" placeholder="Password">
+  </div>
+  <div class="row">
+    <div class="col-8">
+      <div class="icheck-primary">
+        <input type="checkbox" id="remember">
+        <label for="remember">
+          Remember Me
+        </label>
+      </div>
     </div>
-
-
-</div>
+    <!-- /.col -->
+    <div class="col-4">
+      <button type="submit" class="btn btn-primary btn-block submit">Sign In</button>
+    </div>
+    <!-- /.col -->
+  </div>
+</form>
