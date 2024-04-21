@@ -37,6 +37,75 @@
                         </p>
                     </a>
                 </li>
+                <li class="nav-item">
+                    <a href="<?= BASEURL ?>/penilaianAhp" class="nav-link <?= Utils::urlNow() == 'penilaianAhp' ? 'active' : '' ?>">
+                        <i class="nav-icon fa-solid fa-note-sticky"></i>
+                        <p>
+                            Penilaian AHP
+                        </p>
+                    </a>
+                </li>
+
+                <li class="nav-header">DATA MASTER</li>
+                <li class="nav-item">
+                    <a href="<?= BASEURL ?>/Kriteria" class="nav-link <?= Utils::urlNow() == 'Kriteria' ? 'active' : '' ?>">
+                        <i class="nav-icon fa-solid fa-note-sticky"></i>
+                        <p>
+                            Data Kriteria
+                        </p>
+                    </a>
+                </li>
+                <?php
+                $includeUrlUser = [
+                    'Siswa',
+                    'Guru',
+                    'waliMurid',
+                    'Admin',
+                ];
+                $urlNow = Utils::urlNow();
+                $menuOpenClass = (in_array($urlNow, $includeUrlUser)) ? 'menu-open' : '';
+                $activeClass = (in_array($urlNow, $includeUrlUser)) ? 'active' : '';
+
+                $activeClassSiswa = $urlNow == 'Siswa' ? 'active' : '';
+                $activeClassGuru = $urlNow == 'Guru' ? 'active' : '';
+                $activeClassWaliMurid = $urlNow == 'waliMurid' ? 'active' : '';
+                $activeClassAdmin = $urlNow == 'Admin' ? 'active' : '';
+                ?>
+                <li class="nav-item <?= $menuOpenClass; ?>">
+                    <a href="#" class="nav-link <?= $activeClass; ?>">
+                        <i class="nav-icon fa-solid fa-users"></i>
+                        <p>
+                            Data User
+                            <i class="fas fa-angle-left right"></i>
+                        </p>
+                    </a>
+                    <ul class="nav nav-treeview">
+                        <li class="nav-item">
+                            <a href="<?= BASEURL ?>/Siswa" class="nav-link <?= $activeClassSiswa ?>">
+                                <i class="far fa-circle nav-icon"></i>
+                                <p>Data Siswa</p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="<?= BASEURL ?>/Guru" class="nav-link <?= $activeClassGuru ?>">
+                                <i class="far fa-circle nav-icon"></i>
+                                <p>Data Guru</p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="<?= BASEURL ?>/waliMurid" class="nav-link <?= $activeClassWaliMurid ?>">
+                                <i class="far fa-circle nav-icon"></i>
+                                <p>Data Wali Murid</p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="<?= BASEURL ?>/Admin" class="nav-link <?= $activeClassAdmin ?>">
+                                <i class="far fa-circle nav-icon"></i>
+                                <p>Data Admin</p>
+                            </a>
+                        </li>
+                    </ul>
+                </li>
             </ul>
         </nav>
         <!-- /.sidebar-menu -->

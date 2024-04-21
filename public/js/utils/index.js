@@ -149,7 +149,7 @@ function textareaTrim(pane) {
 function select2Standard({
     selector = "",
     parent = "",
-    theme = "bootstrap-5",
+    theme = "bootstrap",
     data = [],
 }) {
     $(`${selector}`).select2({

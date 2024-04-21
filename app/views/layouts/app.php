@@ -29,6 +29,10 @@
 
     <link rel="shortcut icon" href="<?= BASEURL ?>/public/image/icon.png" type="image/x-icon">
     <link rel="stylesheet" href="<?= BASEURL ?>/public/library/fontawesome-free-6.5.2-web/css/all.min.css">
+
+    <link rel="stylesheet" href="<?= BASEURL ?>/public/library/select2-develop/dist/css/select2.min.css">
+    <link rel="stylesheet" href="<?= BASEURL ?>/public/library/select2-bootstrap-theme-master/dist/select2-bootstrap.min.css">
+
     <style>
         label.error {
             color: #E72929;
@@ -102,6 +106,7 @@
     <script src="<?= BASEURL ?>/public/js/utils/index.js"></script>
     <script src="<?= BASEURL ?>/public/library/jquery-validation-1.19.5/dist/jquery.validate.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="<?= BASEURL ?>/public/library/select2-develop/dist/js/select2.min.js"></script>
 
     <!-- AdminLTE dashboard demo (This is only for demo purposes) -->
 
