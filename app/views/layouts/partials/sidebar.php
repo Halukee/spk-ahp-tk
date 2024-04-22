@@ -109,7 +109,7 @@
                 <li class="nav-header">DATA NILAI</li>
                 <li class="nav-item">
                     <a href="<?= BASEURL ?>/Nilai" class="nav-link <?= Utils::urlNow() == 'Nilai' ? 'active' : '' ?>">
-                        <i class="nav-icon fa-solid fa-note-sticky"></i>
+                        <i class="nav-icon fa-solid fa-pen-to-square"></i>
                         <p>
                             Data Nilai
                         </p>
@@ -117,7 +117,7 @@
                 </li>
                 <li class="nav-item">
                     <a href="<?= BASEURL ?>/Absensi" class="nav-link <?= Utils::urlNow() == 'Absensi' ? 'active' : '' ?>">
-                        <i class="nav-icon fa-solid fa-note-sticky"></i>
+                        <i class="nav-icon fa-solid fa-list"></i>
                         <p>
                             Data Absensi
                         </p>
@@ -126,7 +126,7 @@
                 <li class="nav-header">SETTING APLIKASI</li>
                 <li class="nav-item">
                     <a href="<?= BASEURL ?>/Pengaturan" class="nav-link <?= Utils::urlNow() == 'Pengaturan' ? 'active' : '' ?>">
-                        <i class="nav-icon fa-solid fa-note-sticky"></i>
+                        <i class="nav-icon fa-solid fa-gear"></i>
                         <p>
                             Pengaturan
                         </p>
@@ -134,7 +134,7 @@
                 </li>
                 <li class="nav-item">
                     <a href="<?= BASEURL ?>/Logout" class="nav-link <?= Utils::urlNow() == 'Logout' ? 'active' : '' ?>">
-                        <i class="nav-icon fa-solid fa-note-sticky"></i>
+                        <i class="nav-icon fa-solid fa-right-from-bracket"></i>
                         <p>
                             Logout
                         </p>
