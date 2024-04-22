@@ -36,6 +36,7 @@
                     <option value="">-- Peran --</option>
                     <option value="Siswa">Siswa</option>
                     <option value="Guru">Guru</option>
+                    <option value="Wali Murid">Wali Murid</option>
                     <option value="Admin">Admin</option>
                 </select>
             </div>

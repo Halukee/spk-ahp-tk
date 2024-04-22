@@ -106,6 +106,40 @@
                         </li>
                     </ul>
                 </li>
+                <li class="nav-header">DATA NILAI</li>
+                <li class="nav-item">
+                    <a href="<?= BASEURL ?>/Nilai" class="nav-link <?= Utils::urlNow() == 'Nilai' ? 'active' : '' ?>">
+                        <i class="nav-icon fa-solid fa-note-sticky"></i>
+                        <p>
+                            Data Nilai
+                        </p>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="<?= BASEURL ?>/Absensi" class="nav-link <?= Utils::urlNow() == 'Absensi' ? 'active' : '' ?>">
+                        <i class="nav-icon fa-solid fa-note-sticky"></i>
+                        <p>
+                            Data Absensi
+                        </p>
+                    </a>
+                </li>
+                <li class="nav-header">SETTING APLIKASI</li>
+                <li class="nav-item">
+                    <a href="<?= BASEURL ?>/Pengaturan" class="nav-link <?= Utils::urlNow() == 'Pengaturan' ? 'active' : '' ?>">
+                        <i class="nav-icon fa-solid fa-note-sticky"></i>
+                        <p>
+                            Pengaturan
+                        </p>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="<?= BASEURL ?>/Logout" class="nav-link <?= Utils::urlNow() == 'Logout' ? 'active' : '' ?>">
+                        <i class="nav-icon fa-solid fa-note-sticky"></i>
+                        <p>
+                            Logout
+                        </p>
+                    </a>
+                </li>
             </ul>
         </nav>
         <!-- /.sidebar-menu -->
