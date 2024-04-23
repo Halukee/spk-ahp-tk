@@ -10,8 +10,11 @@ class Kriteria extends Controller
             ['url' => BASEURL . '/Dashboard', 'label' => 'Home'],
             ['url' => BASEURL . '/Kriteria', 'label' => 'Kriteria'],
         ];
+        $kriteriaModel = $this->model('Kriteria_model');
+
 
         $data['breadcrumbs'] = $breadcrumbItems;
+        $data['data'] = $kriteriaModel->getAll();
         ob_start();
         include_once $this->view('app/kriteria/index', $data);
         $content = ob_get_clean();
@@ -37,5 +40,37 @@ class Kriteria extends Controller
         include_once $this->view('app/kriteria/form', $data);
         $content = ob_get_clean();
         echo $content;
+    }
+
+    public function edit($id)
+    {
+        $action = BASEURL . '/Kriteria/update/' . $id;
+        $kriteriaModel = $this->model('Kriteria_model');
+
+        $data['action'] = $action;
+        $data['row'] = $kriteriaModel->getById($id);
+        ob_start();
+        include_once $this->view('app/kriteria/form', $data);
+        $content = ob_get_clean();
+        echo $content;
+    }
+
+    public function store()
+    {
+        try {
+            $data = $_POST;
+            $kriteriaModel = $this->model('Kriteria_model');
+            $kriteriaModel->create($data);
+            echo json_encode('Berhasil menambahkan kriteria');
+        } catch (Exception $e) {
+            echo json_encode($e->getMessage());
+        }
+    }
+
+    public function generateKode()
+    {
+        $kriteriaModel = $this->model('Kriteria_model');
+        $getKode = $kriteriaModel->getKode();
+        echo json_encode($getKode);
     }
 }

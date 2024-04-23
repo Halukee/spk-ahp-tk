@@ -3,19 +3,19 @@
         <div class="form-group row">
             <label for="" class="col-lg-4">Kode</label>
             <div class="col-lg-8">
-                <input type="text" name="kode_kriteria" placeholder="Kriteria..." class="form-control">
+                <input type="text" name="kode_kriteria" placeholder="Kriteria..." class="form-control" value="<?= isset($data['row']) ? $data['row']['kode_kriteria'] ?? '' : '' ?>" readonly>
             </div>
         </div>
         <div class="form-group row">
             <label for="" class="col-lg-4">Nama</label>
             <div class="col-lg-8">
-                <input type="text" name="nama_kriteria" placeholder="Nama..." class="form-control">
+                <input type="text" name="nama_kriteria" placeholder="Nama..." class="form-control" value="<?= isset($data['row']) ? $data['row']['nama_kriteria'] ?? '' : '' ?>">
             </div>
         </div>
         <div class="form-group row">
             <label for="" class="col-lg-4">Keterangan</label>
             <div class="col-lg-8">
-                <textarea name="keterangan_kriteria" class="form-control" placeholder="Keterangan..." id="" rows="5"></textarea>
+                <textarea name="keterangan_kriteria" class="form-control" placeholder="Keterangan..." id="" rows="5"><?= isset($data['row']) ? $data['row']['keterangan_kriteria'] ?? '' : '' ?></textarea>
             </div>
         </div>
     </div>

@@ -113,23 +113,21 @@ function basicDeleteConfirmDatatable({
                 dataType: "json",
                 data: data,
                 success: function (data) {
-                    if (data.is_bring_data) {
-                        runToast({
-                            type: "bg-success",
-                            title: "Successfully",
-                            description: data.message,
-                        });
-                        dataFunction(data);
-                    } else {
-                        runToast({
-                            type: "bg-success",
-                            title: "Successfully",
-                            description: data,
-                        });
-                        datatable.ajax.reload();
-                        dataFunction();
-                    }
+                    Swal.fire({
+                        title: 'Successfully',
+                        text: data,
+                        icon: "success",
+                        confirmButtonText: "OK",
+                    });
                 },
+                error: function(){
+                    Swal.fire({
+                        title: 'Failed',
+                        text: JSON.parse(jqXHR.responseText).message,
+                        icon: "error",
+                        confirmButtonText: "OK",
+                    });
+                }
             });
         }
     });

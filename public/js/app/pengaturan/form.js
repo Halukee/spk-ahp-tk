@@ -2,12 +2,18 @@ var body = $('body');
 var formSubmit = document.getElementById("form-submit");
 var validate = $("#form-submit").validate({
     rules: {
-        nama_profile: "required",
-        jeniskelamin_profile: "required",
+        nama_pengaturan: "required",
+        pembuat_pengaturan: "required",
+        gambar_pengaturan: "required",
+        nokontak_pengaturan: "required",
+        alamat_pengaturan: "required",
     },
     messages: {
-        nama_profile: "Masukan nama profile",
-        jeniskelamin_profile: "Masukan jenis kelamin",
+        nama_pengaturan: "Masukan nama aplikasi",
+        pembuat_pengaturan: "Masukan nama pembuat aplikasi",
+        gambar_pengaturan: "Masukan gambar aplikasi",
+        nokontak_pengaturan: "Masukan no. kontak aplikasi",
+        alamat_pengaturan: "Masukan alamat",
     }
 });
 
@@ -40,13 +46,19 @@ function submitData() {
                     Swal.fire({
                         title: 'Successfully',
                         text: data,
-                        icon: "error",
+                        icon: "success",
                         confirmButtonText: "OK",
                     });
                 },
                 error: function (jqXHR, exception) {
                     $("#btn-submit").attr("disabled", false);
                     $("#btn-submit").html(enableButton);
+                    Swal.fire({
+                        title: 'Failed',
+                        text: JSON.parse(jqXHR.responseText).message,
+                        icon: "error",
+                        confirmButtonText: "OK",
+                    });
                 },
                 complete: function () {
                     $("#btn-submit").attr("disabled", false);

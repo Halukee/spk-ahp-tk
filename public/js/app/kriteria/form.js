@@ -35,13 +35,19 @@ function submitData() {
                     Swal.fire({
                         title: 'Successfully',
                         text: data,
-                        icon: "error",
+                        icon: "success",
                         confirmButtonText: "OK",
                     });
                 },
                 error: function (jqXHR, exception) {
                     $("#btn-submit").attr("disabled", false);
                     $("#btn-submit").html(enableButton);
+                    Swal.fire({
+                        title: 'Failed',
+                        text: JSON.parse(jqXHR.responseText).message,
+                        icon: "error",
+                        confirmButtonText: "OK",
+                    });
                 },
                 complete: function () {
                     $("#btn-submit").attr("disabled", false);
