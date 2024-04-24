@@ -51,19 +51,19 @@ class Kriteria_model
     }
 
 
-    public function update($data)
+    public function update($data, $id)
     {
         $query = "UPDATE kriteria SET
                     nama_kriteria = :nama_kriteria,
                     kode_kriteria = :kode_kriteria,
-                    keterangan_kriteria = :keterangan_kriteria,
+                    keterangan_kriteria = :keterangan_kriteria
                   WHERE id = :id";
 
         $this->db->query($query);
         $this->db->bind('nama_kriteria', $data['nama_kriteria']);
         $this->db->bind('kode_kriteria', $data['kode_kriteria']);
         $this->db->bind('keterangan_kriteria', $data['keterangan_kriteria']);
-        $this->db->bind('id', $data['id']);
+        $this->db->bind('id', $id);
 
         $this->db->execute();
 

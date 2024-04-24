@@ -32,4 +32,21 @@ class Utils
         $lastSegment = basename($currentUrl);
         return $lastSegment;
     }
+
+    public static function fullUrl()
+    {
+        $protocol = isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on' ? "https" : "http";
+        $host = $_SERVER['HTTP_HOST'];
+        $uri = $_SERVER['REQUEST_URI'];
+        $url = $protocol . "://" . $host . $uri;
+        return $url;
+    }
+
+    public static function urlRouting()
+    {
+        $fullUrl = Utils::fullUrl();
+        $parsed_url = parse_url($fullUrl);
+        $simplified_url = $parsed_url['scheme'] . '://' . $parsed_url['host'] . $parsed_url['path'];
+        return $simplified_url;
+    }
 }

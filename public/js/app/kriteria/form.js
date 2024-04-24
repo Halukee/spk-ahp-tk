@@ -38,6 +38,7 @@ function submitData() {
                         icon: "success",
                         confirmButtonText: "OK",
                     });
+                    datatable.ajax.reload();
                 },
                 error: function (jqXHR, exception) {
                     $("#btn-submit").attr("disabled", false);

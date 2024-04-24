@@ -3,7 +3,7 @@
         <div class="form-group row">
             <label for="" class="col-lg-4">Kode</label>
             <div class="col-lg-8">
-                <input type="text" name="kode_kriteria" placeholder="Kriteria..." class="form-control" value="<?= isset($data['row']) ? $data['row']['kode_kriteria'] ?? '' : '' ?>" readonly>
+                <input type="text" name="kode_kriteria" placeholder="Kriteria..." class="form-control" value="<?= isset($data['row']) ? $data['row']['kode_kriteria'] ?? $data['max_kode'] : $data['max_kode'] ?>" readonly>
             </div>
         </div>
         <div class="form-group row">

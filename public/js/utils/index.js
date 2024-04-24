@@ -119,6 +119,7 @@ function basicDeleteConfirmDatatable({
                         icon: "success",
                         confirmButtonText: "OK",
                     });
+                    datatable.ajax.reload();
                 },
                 error: function(){
                     Swal.fire({

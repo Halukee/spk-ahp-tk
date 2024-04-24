@@ -32,6 +32,7 @@
 
     <link rel="stylesheet" href="<?= BASEURL ?>/public/library/select2-develop/dist/css/select2.min.css">
     <link rel="stylesheet" href="<?= BASEURL ?>/public/library/select2-bootstrap-theme-master/dist/select2-bootstrap.min.css">
+    <link rel="stylesheet" href="<?= BASEURL ?>/public/library/datatables/datatables.min.css">
 
     <style>
         label.error {
@@ -107,6 +108,7 @@
     <script src="<?= BASEURL ?>/public/library/jquery-validation-1.19.5/dist/jquery.validate.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script src="<?= BASEURL ?>/public/library/select2-develop/dist/js/select2.min.js"></script>
+    <script src="<?= BASEURL ?>/public/library/datatables/datatables.min.js"></script>
 
     <!-- AdminLTE dashboard demo (This is only for demo purposes) -->
 

@@ -2,6 +2,45 @@
 
 class Kriteria extends Controller
 {
+    public function dataTables()
+    {
+        $kriteriaModel = $this->model('Kriteria_model');
+        $dataAll = $kriteriaModel->getAll();
+        $dataCount = count($dataAll);
+        $data = array();
+        foreach ($dataAll as $key => $value) {
+            $buttonEdit = '
+        <a href="' . BASEURL . '/Kriteria/edit/' . $value['id'] . '" class="btn btn-warning btn-edit btn-sm">
+            <i class="fa-solid fa-pencil"></i>
+        </a>';
+            $buttonDelete = '
+        <a href="' . BASEURL . '/Kriteria/delete/' . $value['id'] . '" class="btn btn-danger btn-delete btn-sm">
+            <i class="fa-solid fa-trash"></i>
+        </a>';
+            $buttonAction = '
+            <div class="text-center">
+                ' . $buttonEdit . ' ' . $buttonDelete . '
+            </div>';
+            $data[] = [
+                'kode_kriteria' => $value['kode_kriteria'],
+                'nama_kriteria' => $value['nama_kriteria'],
+                'keterangan_kriteria' => $value['keterangan_kriteria'],
+                'action' => $buttonAction,
+            ];
+        }
+
+        $totalRecords = $dataCount;
+        $recordsFiltered = $dataCount;
+        $draw = isset($_GET['draw']) ? intval($_GET['draw']) : 0;
+        $response = array(
+            "draw" => intval($draw),
+            "recordsTotal" => $totalRecords,
+            "recordsFiltered" => $recordsFiltered,
+            "data" => $data,
+        );
+
+        echo json_encode($response);
+    }
     public function index()
     {
         $template = new Template();
@@ -34,8 +73,12 @@ class Kriteria extends Controller
 
     public function create()
     {
+        $kriteriaModel = $this->model('Kriteria_model');
+
         $action = BASEURL . '/Kriteria/store/';
         $data['action'] = $action;
+        $data['max_kode'] = $kriteriaModel->getKode();
+
         ob_start();
         include_once $this->view('app/kriteria/form', $data);
         $content = ob_get_clean();
@@ -49,6 +92,7 @@ class Kriteria extends Controller
 
         $data['action'] = $action;
         $data['row'] = $kriteriaModel->getById($id);
+        $data['max_kode'] = $kriteriaModel->getKode();
         ob_start();
         include_once $this->view('app/kriteria/form', $data);
         $content = ob_get_clean();
@@ -67,10 +111,26 @@ class Kriteria extends Controller
         }
     }
 
-    public function generateKode()
+    public function update($id)
     {
-        $kriteriaModel = $this->model('Kriteria_model');
-        $getKode = $kriteriaModel->getKode();
-        echo json_encode($getKode);
+        try {
+            $data = $_POST;
+            $kriteriaModel = $this->model('Kriteria_model');
+            $kriteriaModel->update($data, $id);
+            echo json_encode('Berhasil mengubah kriteria');
+        } catch (Exception $e) {
+            echo json_encode($e->getMessage());
+        }
+    }
+
+    public function delete($id)
+    {
+        try {
+            $kriteriaModel = $this->model('Kriteria_model');
+            $kriteriaModel->delete($id);
+            echo json_encode('Berhasil delete kriteria');
+        } catch (Exception $e) {
+            echo json_encode($e->getMessage());
+        }
     }
 }

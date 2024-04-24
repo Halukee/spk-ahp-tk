@@ -1,6 +1,46 @@
 var body = $('body');
 var baseurl = $('.baseurl').data('value');
+var datatable;
+
 $(document).ready(function(){
+    function initDatatable() {
+        datatable = basicDatatable({
+            tableId: $("#dataTable"),
+            ajaxUrl: `${baseurl}/Kriteria/dataTables`,
+            columns: [
+                {
+                    data: null,
+                    orderable: false,
+                    searchable: false,
+                    className: "text-center",
+                },
+                {
+                    data: "kode_kriteria",
+                    name: "kode_kriteria",
+                    searchable: true,
+                },
+                {
+                    data: "nama_kriteria",
+                    name: "nama_kriteria",
+                    searchable: true,
+                },
+                {
+                    data: "keterangan_kriteria",
+                    name: "keterangan_kriteria",
+                    searchable: true,
+                },
+                {
+                    data: "action",
+                    name: "action",
+                    searchable: true,
+                },
+            ],
+            dataAjaxUrl: {
+            },
+        });
+    }
+    initDatatable();
+
     body.on('click','.btn-add', function(e) {
         e.preventDefault();
         showModal({
@@ -27,16 +67,4 @@ $(document).ready(function(){
             urlDelete: $(this).attr('href'),
         })
     })
-
-    const generateKodeKriteria = () => {
-        $.ajax({
-            url: `${baseurl}/Kriteria/generateKode`,
-            type: 'get',
-            dataType: 'json',
-            success: function(data){
-                console.log('get data', data);
-            }
-        })
-    }
-    generateKodeKriteria();
 })
