@@ -39,10 +39,16 @@ class Pengaturan extends Controller
 
     public function store()
     {
-        $data = $_POST;
-        $file = $_FILES;
-        $gambar_pengaturan = Utils::uploadFile('gambar_pengaturan', 'uploads/pengaturan/');
+        try {
+            $data = $_POST;
+            $gambar_pengaturan = Utils::uploadFile('gambar_pengaturan', 'uploads/pengaturan/');
+            $data['gambar_pengaturan'] = $gambar_pengaturan;
 
-        $pengaturanModel = $this->model('Pengaturan_model');
+            $pengaturanModel = $this->model('Pengaturan_model');
+            $pengaturanModel->create($data);
+            echo json_encode('Berhasil setting aplikasi');
+        } catch (Exception $e) {
+            echo json_encode($e->getMessage());
+        }
     }
 }
