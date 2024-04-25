@@ -45,24 +45,6 @@
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        <?php
-                                        $no = 1;
-                                        foreach ($data['data'] as $key => $item) { ?>
-                                            <tr>
-                                                <td><?= $no++ ?></td>
-                                                <td><?= $item['kode_kriteria'] ?></td>
-                                                <td><?= $item['nama_kriteria'] ?></td>
-                                                <td><?= $item['keterangan_kriteria'] ?></td>
-                                                <td>
-                                                    <a href="<?= BASEURL ?>/Kriteria/edit/<?= $item['id'] ?>" class="btn btn-warning btn-edit btn-sm">
-                                                        <i class="fa-solid fa-pencil"></i>
-                                                    </a>
-                                                    <a href="<?= BASEURL ?>/Kriteria/delete/<?= $item['id'] ?>" class="btn btn-danger btn-delete btn-sm">
-                                                        <i class="fa-solid fa-trash"></i>
-                                                    </a>
-                                                </td>
-                                            </tr>
-                                        <?php } ?>
                                     </tbody>
                                 </table>
                             </div>

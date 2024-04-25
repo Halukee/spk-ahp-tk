@@ -134,7 +134,7 @@
                 </li>
                 <li class="nav-item">
                     <a href="<?= BASEURL ?>/Peran" class="nav-link <?= Utils::urlNow() == 'Peran' ? 'active' : '' ?>">
-                        <i class="nav-icon fa-solid fa-user-secret"></i>
+                        <i class="nav-icon fa-solid fa-gear"></i>
                         <p>
                             Peran
                         </p>

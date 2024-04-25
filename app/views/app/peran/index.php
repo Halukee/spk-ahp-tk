@@ -4,7 +4,7 @@
         <div class="container-fluid">
             <div class="row mb-2">
                 <div class="col-sm-6">
-                    <h1 class="m-0">Siswa</h1>
+                    <h1 class="m-0">Peran</h1>
                 </div><!-- /.col -->
                 <div class="col-sm-6">
                     <?= Utils::generateBreadcrumb($data['breadcrumbs']) ?>
@@ -23,7 +23,7 @@
                         <div class="card-header">
                             <div class="d-flex justify-content-between">
                                 <div>
-                                    <i class="fa-solid fa-note-sticky"></i> Siswa
+                                    <i class="fa-solid fa-note-sticky"></i> Peran
                                 </div>
                                 <div>
                                     <button type="button" class="btn btn-primary btn-add">
@@ -38,14 +38,12 @@
                                     <thead>
                                         <tr>
                                             <th>No.</th>
-                                            <th>Nama</th>
-                                            <th>Alamat</th>
-                                            <th>Jenis Kelamin</th>
-                                            <th>Nomor HP</th>
+                                            <th>Peran</th>
                                             <th>Action</th>
                                         </tr>
                                     </thead>
-                                    <tbody></tbody>
+                                    <tbody>
+                                    </tbody>
                                 </table>
                             </div>
                         </div>

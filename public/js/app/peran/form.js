@@ -2,25 +2,12 @@ var body = $('body');
 var formSubmit = document.getElementById("form-submit");
 var validate = $("#form-submit").validate({
     rules: {
-        nama_pengaturan: "required",
-        pembuat_pengaturan: "required",
-        gambar_pengaturan: "required",
-        nokontak_pengaturan: "required",
-        alamat_pengaturan: "required",
+        nama_roles: "required",
     },
     messages: {
-        nama_pengaturan: "Masukan nama aplikasi",
-        pembuat_pengaturan: "Masukan nama pembuat aplikasi",
-        gambar_pengaturan: "Masukan gambar aplikasi",
-        nokontak_pengaturan: "Masukan no. kontak aplikasi",
-        alamat_pengaturan: "Masukan alamat",
+        nama_roles: "Masukan nama peran",
     }
 });
-
-select2Standard({
-    parent: '#modalNormal',
-    selector: '.select2',
-})
 
 $(document).ready(function(){
 formSubmit.addEventListener("submit", function (event) {
@@ -30,15 +17,13 @@ formSubmit.addEventListener("submit", function (event) {
 
 function submitData() {
         if(validate.valid()){
-            var formData = new FormData($('#form-submit')[0]);
-        
+            const formData = $("#form-submit").serialize();
+            
             $.ajax({
                 type: "post",
                 url: $("#form-submit").attr("action"),
                 data: formData,
                 dataType: "json",
-                processData: false,
-                contentType: false,
                 beforeSend: function () {
                     $("#btn-submit").attr("disabled", true);
                     $("#btn-submit").html(disableButton);
@@ -51,6 +36,7 @@ function submitData() {
                         icon: "success",
                         confirmButtonText: "OK",
                     });
+                    datatable.ajax.reload();
                 },
                 error: function (jqXHR, exception) {
                     $("#btn-submit").attr("disabled", false);

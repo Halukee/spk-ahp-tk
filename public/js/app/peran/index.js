@@ -6,7 +6,7 @@ $(document).ready(function(){
     function initDatatable() {
         datatable = basicDatatable({
             tableId: $("#dataTable"),
-            ajaxUrl: `${baseurl}/Siswa/dataTables`,
+            ajaxUrl: `${baseurl}/Peran/dataTables`,
             columns: [
                 {
                     data: null,
@@ -15,23 +15,8 @@ $(document).ready(function(){
                     className: "text-center",
                 },
                 {
-                    data: "nama_profile",
-                    name: "nama_profile",
-                    searchable: true,
-                },
-                {
-                    data: "alamat_profile",
-                    name: "alamat_profile",
-                    searchable: true,
-                },
-                {
-                    data: "jeniskelamin_profile",
-                    name: "jeniskelamin_profile",
-                    searchable: true,
-                },
-                {
-                    data: "nomorhp_profile",
-                    name: "nomorhp_profile",
+                    data: "nama_roles",
+                    name: "nama_roles",
                     searchable: true,
                 },
                 {
@@ -49,9 +34,9 @@ $(document).ready(function(){
     body.on('click','.btn-add', function(e) {
         e.preventDefault();
         showModal({
-            url: `${baseurl}/Siswa/create`,
+            url: `${baseurl}/Peran/create`,
             modalId: 'modalNormal',
-            title: 'Form Siswa',
+            title: 'Form Peran',
             type: 'get'
         })
     })
@@ -61,7 +46,7 @@ $(document).ready(function(){
         showModal({
             url: $(this).attr('href'),
             modalId: 'modalNormal',
-            title: 'Form Siswa',
+            title: 'Form Peran',
             type: 'get'
         })
     })

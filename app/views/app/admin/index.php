@@ -34,7 +34,7 @@
                         </div>
                         <div class="card-body">
                             <div class="table-responsive">
-                                <table class="table table-bordered">
+                                <table class="table table-bordered" id="dataTable">
                                     <thead>
                                         <tr>
                                             <th>No.</th>
@@ -42,7 +42,6 @@
                                             <th>Alamat</th>
                                             <th>Jenis Kelamin</th>
                                             <th>Nomor HP</th>
-                                            <th>Role</th>
                                             <th>Action</th>
                                         </tr>
                                     </thead>

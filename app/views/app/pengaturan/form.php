@@ -18,7 +18,7 @@
             <div class="col-lg-6">
                 <div class="form-group">
                     <label for="">No. Kontak</label>
-                    <input type="text" name="nokontak_pengaturan" class="form-control" placeholder="No. Kontak...">
+                    <input type="number" name="nokontak_pengaturan" class="form-control" placeholder="No. Kontak...">
                 </div>
             </div>
             <div class="col-lg-6">
@@ -43,4 +43,4 @@
         </button>
     </div>
 </form>
-<script src="<?= BASEURL ?>/public/js/app/guru/form.js"></script>
+<script src="<?= BASEURL ?>/public/js/app/pengaturan/form.js"></script>

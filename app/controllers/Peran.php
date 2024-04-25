@@ -1,20 +1,20 @@
 <?php
 
-class Siswa extends Controller
+class Peran extends Controller
 {
     public function dataTables()
     {
-        $siswaModel = $this->model('Siswa_model');
-        $dataAll = $siswaModel->getAll();
+        $peranModel = $this->model('Peran_model');
+        $dataAll = $peranModel->getAll();
         $dataCount = count($dataAll);
         $data = array();
         foreach ($dataAll as $key => $value) {
             $buttonEdit = '
-        <a href="' . BASEURL . '/Siswa/edit/' . $value['id'] . '" class="btn btn-warning btn-edit btn-sm">
+        <a href="' . BASEURL . '/Peran/edit/' . $value['id'] . '" class="btn btn-warning btn-edit btn-sm">
             <i class="fa-solid fa-pencil"></i>
         </a>';
             $buttonDelete = '
-        <a href="' . BASEURL . '/Siswa/delete/' . $value['id'] . '" class="btn btn-danger btn-delete btn-sm">
+        <a href="' . BASEURL . '/Peran/delete/' . $value['id'] . '" class="btn btn-danger btn-delete btn-sm">
             <i class="fa-solid fa-trash"></i>
         </a>';
             $buttonAction = '
@@ -22,10 +22,7 @@ class Siswa extends Controller
                 ' . $buttonEdit . ' ' . $buttonDelete . '
             </div>';
             $data[] = [
-                'nama_profile' => $value['nama_profile'],
-                'alamat_profile' => $value['alamat_profile'],
-                'jeniskelamin_profile' => $value['jeniskelamin_profile'] == 'L' ? 'Laki-laki' : "Perempuan",
-                'nomorhp_profile' => $value['nomorhp_profile'],
+                'nama_roles' => $value['nama_roles'],
                 'action' => $buttonAction,
             ];
         }
@@ -48,23 +45,23 @@ class Siswa extends Controller
         // breadcrumbs
         $breadcrumbItems = [
             ['url' => BASEURL . '/Dashboard', 'label' => 'Home'],
-            ['url' => BASEURL . '/Siswa', 'label' => 'Siswa'],
+            ['url' => BASEURL . '/Peran', 'label' => 'Peran'],
         ];
-        $siswaModel = $this->model('Siswa_model');
+        $peranModel = $this->model('Peran_model');
 
 
         $data['breadcrumbs'] = $breadcrumbItems;
-        $data['data'] = $siswaModel->getAll();
+        $data['data'] = $peranModel->getAll();
         ob_start();
-        include_once $this->view('app/siswa/index', $data);
+        include_once $this->view('app/peran/index', $data);
         $content = ob_get_clean();
 
 
-        $template->assign('title', 'Halaman Siswa');
+        $template->assign('title', 'Halaman Peran');
         $template->assign('content', $content);
         $template->assign('custom_js', '
         <script class="baseurl" data-value="' . BASEURL . '"></script>
-        <script src="' . BASEURL . '/public/js/app/siswa/index.js"></script>
+        <script src="' . BASEURL . '/public/js/app/peran/index.js"></script>
         ');
 
 
@@ -74,26 +71,26 @@ class Siswa extends Controller
 
     public function create()
     {
-        $siswaModel = $this->model('Siswa_model');
+        $peranModel = $this->model('Peran_model');
 
-        $action = BASEURL . '/Siswa/store/';
+        $action = BASEURL . '/Peran/store/';
         $data['action'] = $action;
 
         ob_start();
-        include_once $this->view('app/siswa/form', $data);
+        include_once $this->view('app/peran/form', $data);
         $content = ob_get_clean();
         echo $content;
     }
 
     public function edit($id)
     {
-        $action = BASEURL . '/Siswa/update/' . $id;
-        $siswaModel = $this->model('Siswa_model');
+        $action = BASEURL . '/Peran/update/' . $id;
+        $peranModel = $this->model('Peran_model');
 
         $data['action'] = $action;
-        $data['row'] = $siswaModel->getById($id);
+        $data['row'] = $peranModel->getById($id);
         ob_start();
-        include_once $this->view('app/siswa/form', $data);
+        include_once $this->view('app/peran/form', $data);
         $content = ob_get_clean();
         echo $content;
     }
@@ -102,9 +99,9 @@ class Siswa extends Controller
     {
         try {
             $data = $_POST;
-            $siswaModel = $this->model('Siswa_model');
-            $siswaModel->create($data);
-            echo json_encode('Berhasil menambahkan siswa');
+            $peranModel = $this->model('Peran_model');
+            $peranModel->create($data);
+            echo json_encode('Berhasil menambahkan peran');
         } catch (Exception $e) {
             echo json_encode($e->getMessage());
         }
@@ -114,9 +111,9 @@ class Siswa extends Controller
     {
         try {
             $data = $_POST;
-            $siswaModel = $this->model('Siswa_model');
-            $siswaModel->update($data, $id);
-            echo json_encode('Berhasil mengubah siswa');
+            $peranModel = $this->model('Peran_model');
+            $peranModel->update($data, $id);
+            echo json_encode('Berhasil mengubah peran');
         } catch (Exception $e) {
             echo json_encode($e->getMessage());
         }
@@ -125,9 +122,9 @@ class Siswa extends Controller
     public function delete($id)
     {
         try {
-            $siswaModel = $this->model('Siswa_model');
-            $siswaModel->delete($id);
-            echo json_encode('Berhasil delete siswa');
+            $peranModel = $this->model('Peran_model');
+            $peranModel->delete($id);
+            echo json_encode('Berhasil delete peran');
         } catch (Exception $e) {
             echo json_encode($e->getMessage());
         }

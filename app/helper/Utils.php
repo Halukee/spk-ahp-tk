@@ -49,4 +49,28 @@ class Utils
         $simplified_url = $parsed_url['scheme'] . '://' . $parsed_url['host'] . $parsed_url['path'];
         return $simplified_url;
     }
+
+    public static function uploadFile($nama_file, $direktori)
+    {
+        $file = $_FILES[$nama_file];
+        $upload_dir = $direktori;
+
+        if (!file_exists($upload_dir)) {
+            mkdir($upload_dir, 0777, true);
+        }
+
+        $nama_file = explode('.', $file['name']);
+        $nama_file = $nama_file[0];
+
+        $new_filename = str_replace(' ', '_', strtolower($nama_file)) . '_' . date('Y-m-d_H-i-s') . '_' . uniqid() . '.' . pathinfo($file['name'], PATHINFO_EXTENSION);
+
+        $upload_path = $upload_dir . $new_filename;
+        if (move_uploaded_file($file['tmp_name'], $upload_path)) {
+            $data[$nama_file] = $new_filename;
+        } else {
+            $data[$nama_file] = 'default.png';
+        }
+
+        return $data[$nama_file];
+    }
 }

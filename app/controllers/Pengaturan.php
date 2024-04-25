@@ -29,11 +29,20 @@ class Pengaturan extends Controller
 
     public function create()
     {
-        $action = BASEURL . 'pengaturan/store/';
+        $action = BASEURL . '/pengaturan/store/';
         $data['action'] = $action;
         ob_start();
         include_once $this->view('app/pengaturan/form', $data);
         $content = ob_get_clean();
         echo $content;
+    }
+
+    public function store()
+    {
+        $data = $_POST;
+        $file = $_FILES;
+        $gambar_pengaturan = Utils::uploadFile('gambar_pengaturan', 'uploads/pengaturan/');
+
+        $pengaturanModel = $this->model('Pengaturan_model');
     }
 }
