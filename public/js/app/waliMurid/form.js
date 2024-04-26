@@ -113,7 +113,7 @@ function submitData() {
                         confirmButtonText: "OK",
                     });
                 },
-                compvare: function () {
+                complete: function () {
                     $("#btn-submit").attr("disabled", false);
                     $("#btn-submit").html(enableButton);
                 },

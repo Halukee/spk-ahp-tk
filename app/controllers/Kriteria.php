@@ -2,6 +2,13 @@
 
 class Kriteria extends Controller
 {
+    public function __construct()
+    {
+        $utils = new Utils();
+        $utils->notLogin();
+    }
+
+
     public function dataTables()
     {
         $kriteriaModel = $this->model('Kriteria_model');

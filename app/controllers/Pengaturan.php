@@ -2,6 +2,13 @@
 
 class Pengaturan extends Controller
 {
+    public function __construct()
+    {
+        $utils = new Utils();
+        $utils->notLogin();
+    }
+
+
     public function index()
     {
         $template = new Template();
@@ -30,6 +37,14 @@ class Pengaturan extends Controller
     public function create()
     {
         $action = BASEURL . '/pengaturan/store/';
+
+        $pengaturanModel = $this->model('Pengaturan_model');
+        $getAll = $pengaturanModel->getAll();
+        if (count($getAll) > 0) {
+            $action = BASEURL . '/pengaturan/update/' . $getAll[0]['id'];
+        }
+
+        $data['row'] = $pengaturanModel->getAll()[0];
         $data['action'] = $action;
         ob_start();
         include_once $this->view('app/pengaturan/form', $data);
@@ -41,11 +56,30 @@ class Pengaturan extends Controller
     {
         try {
             $data = $_POST;
-            $gambar_pengaturan = Utils::uploadFile('gambar_pengaturan', 'uploads/pengaturan/');
+            $gambar_pengaturan = Utils::uploadFile('gambar_pengaturan', 'uploads/pengaturan/', '');
             $data['gambar_pengaturan'] = $gambar_pengaturan;
 
             $pengaturanModel = $this->model('Pengaturan_model');
             $pengaturanModel->create($data);
+            echo json_encode('Berhasil setting aplikasi');
+        } catch (Exception $e) {
+            echo json_encode($e->getMessage());
+        }
+    }
+
+    public function update($id)
+    {
+        try {
+            $data = $_POST;
+
+            $pengaturanModel = $this->model('Pengaturan_model');
+            $getData = $pengaturanModel->getById($id);
+
+            $gambar_pengaturan = Utils::uploadFile('gambar_pengaturan', 'uploads/pengaturan/', $getData['gambar_pengaturan']);
+            $data['gambar_pengaturan'] = $gambar_pengaturan;
+
+            $pengaturanModel = $this->model('Pengaturan_model');
+            $pengaturanModel->update($data, $id);
             echo json_encode('Berhasil setting aplikasi');
         } catch (Exception $e) {
             echo json_encode($e->getMessage());

@@ -2,6 +2,13 @@
 
 class Profile extends Controller
 {
+    public function __construct()
+    {
+        $utils = new Utils();
+        $utils->notLogin();
+    }
+
+
     public function index()
     {
         $template = new Template();
@@ -27,6 +34,15 @@ class Profile extends Controller
         $template->display($this->view('layouts/app'));
     }
 
+    public function output()
+    {
+        ob_start();
+        include_once $this->view('app/myProfile/output');
+        $content = ob_get_clean();
+
+        echo $content;
+    }
+
     public function edit($id)
     {
         $action = BASEURL . '/Profile/update/' . $id;
@@ -39,5 +55,13 @@ class Profile extends Controller
 
     public function update($id)
     {
+        try {
+            $data = $_POST;
+            $siswaModel = $this->model('Users_model');
+            $siswaModel->update($data, $id);
+            echo json_encode('Berhasil mengubah profile');
+        } catch (Exception $e) {
+            echo json_encode($e->getMessage());
+        }
     }
 }

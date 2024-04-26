@@ -2,6 +2,13 @@
 
 class Admin extends Controller
 {
+    public function __construct()
+    {
+        $utils = new Utils();
+        $utils->notLogin();
+    }
+
+
     public function dataTables()
     {
         $adminModel = $this->model('Admin_model');

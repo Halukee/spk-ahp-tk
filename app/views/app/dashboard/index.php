@@ -17,7 +17,7 @@
     <!-- Main content -->
     <section class="content">
         <div class="container-fluid">
-          <?php include_once 'components/cardInfo.php' ?>
+            <?php include_once 'components/cardInfo.php' ?>
 
             <!-- /.row -->
             <!-- Main row -->

@@ -1,4 +1,4 @@
-<form action="<?= BASEURL ?>/public/template/AdminLTE-3.2.0/index3.html" method="post" id="form-submit">
+<form action="<?= BASEURL ?>/Login/store" method="post" id="form-submit">
   <div class="form-group">
     <input type="text" name="email_username_users" class="form-control" placeholder="Email atau Username">
   </div>
@@ -8,7 +8,7 @@
   <div class="row">
     <div class="col-8">
       <div class="icheck-primary">
-        <input type="checkbox" id="remember">
+        <input type="checkbox" id="remember" name="remember_users">
         <label for="remember">
           Remember Me
         </label>
@@ -16,7 +16,7 @@
     </div>
     <!-- /.col -->
     <div class="col-4">
-      <button type="submit" class="btn btn-primary btn-block submit">Sign In</button>
+      <button type="submit" class="btn btn-primary btn-block" id="btn-submit">Sign In</button>
     </div>
     <!-- /.col -->
   </div>

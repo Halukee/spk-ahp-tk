@@ -2,6 +2,13 @@
 
 class Siswa extends Controller
 {
+    public function __construct()
+    {
+        $utils = new Utils();
+        $utils->notLogin();
+    }
+
+
     public function dataTables()
     {
         $siswaModel = $this->model('Siswa_model');

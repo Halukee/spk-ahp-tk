@@ -2,6 +2,13 @@
 
 class Guru extends Controller
 {
+    public function __construct()
+    {
+        $utils = new Utils();
+        $utils->notLogin();
+    }
+
+
     public function dataTables()
     {
         $guruModel = $this->model('Guru_model');

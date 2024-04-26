@@ -4,7 +4,7 @@
           <!-- small box -->
           <div class="small-box bg-info">
               <div class="inner">
-                  <h3>25</h3>
+                  <h3><?= $data['siswa'] ?></h3>
 
                   <p>Data Siswa</p>
               </div>
@@ -19,7 +19,7 @@
           <!-- small box -->
           <div class="small-box bg-success">
               <div class="inner">
-                  <h3>53</h3>
+                  <h3><?= $data['guru'] ?></h3>
                   <p>Guru</p>
               </div>
               <div class="icon">
@@ -33,7 +33,7 @@
           <!-- small box -->
           <div class="small-box bg-warning">
               <div class="inner">
-                  <h3>24</h3>
+                  <h3><?= $data['admin'] ?></h3>
 
                   <p>Admin</p>
               </div>
@@ -46,15 +46,17 @@
       <!-- ./col -->
       <div class="col-lg-3 col-6">
           <!-- small box -->
-          <div class="small-box bg-danger">
+
+
+          <div class="small-box bg-secondary">
               <div class="inner">
-                  <h3>65</h3>
-                  <p>Kriteria</p>
+                  <h3><?= $data['waliMurid'] ?></h3>
+                  <p>Wali Siswa</p>
               </div>
               <div class="icon">
-                  <i class="fa-solid fa-layer-group fa"></i>
+                  <i class="fa-solid fa-person-chalkboard fa"></i>
               </div>
-              <a href="<?= BASEURL ?>/Kriteria" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
+              <a href="<?= BASEURL ?>/Siswa" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
           </div>
       </div>
       <!-- ./col -->
@@ -63,16 +65,15 @@
   <div class="row">
       <div class="col-lg-3 col-6">
           <!-- small box -->
-          <div class="small-box bg-secondary">
+          <div class="small-box bg-danger">
               <div class="inner">
-                  <h3>35</h3>
-
-                  <p>Wali Siswa</p>
+                  <h3><?= $data['kriteria'] ?></h3>
+                  <p>Kriteria</p>
               </div>
               <div class="icon">
-                  <i class="fa-solid fa-person-chalkboard fa"></i>
+                  <i class="fa-solid fa-layer-group fa"></i>
               </div>
-              <a href="<?= BASEURL ?>/Siswa" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
+              <a href="<?= BASEURL ?>/Kriteria" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
           </div>
       </div>
       <!-- ./col -->

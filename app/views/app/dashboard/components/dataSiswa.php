@@ -9,7 +9,7 @@
         </div><!-- /.card-header -->
         <div class="card-body">
             <div class="table-responsive">
-                <table class="table table-bordere">
+                <table class="table table-bordere" id="dataTable">
                     <thead>
                         <tr>
                             <th>No.</th>

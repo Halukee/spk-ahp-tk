@@ -1,3 +1,7 @@
+<?php
+$utils = new Utils();
+$settingApp = $utils->settingApp();
+?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -9,13 +13,12 @@
     <!-- Google Font: Source Sans Pro -->
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
     <!-- Font Awesome -->
-    <link rel="stylesheet" href="<?= BASEURL ?>/public/template/AdminLTE-3.2.0/plugins/fontawesome-free/css/all.min.css">
+    <link rel="stylesheet" href="<?= BASEURL ?>/public/library/fontawesome-free-6.5.2-web/css/all.min.css">
     <!-- icheck bootstrap -->
     <link rel="stylesheet" href="<?= BASEURL ?>/public/template/AdminLTE-3.2.0/plugins/icheck-bootstrap/icheck-bootstrap.min.css">
     <!-- Theme style -->
     <link rel="stylesheet" href="<?= BASEURL ?>/public/template/AdminLTE-3.2.0/dist/css/adminlte.min.css">
-    <link rel="shortcut icon" href="<?= BASEURL ?>/public/image/icon.png
-    " type="image/x-icon">
+    <link rel="shortcut icon" href="<?= BASEURL ?>/uploads/pengaturan/<?= $settingApp['gambar_pengaturan'] ?>" type="image/x-icon">
     <style>
         label.error {
             color: #E72929;
@@ -26,7 +29,7 @@
 <body class="hold-transition login-page">
     <div class="login-box">
         <div class="login-logo">
-            <a href="<?= BASEURL ?>"><b>SPK</b> METODE AHP</a>
+            <a href="<?= BASEURL ?>"><b>SPK</b> <?= $settingApp['nama_pengaturan'] ?></a>
         </div>
         <!-- /.login-logo -->
         <div class="card">
@@ -36,12 +39,12 @@
                 <?= $content;  ?>
                 <!-- /.social-auth-links -->
 
-                <p class="mb-1">
+                <!-- <p class="mb-1">
                     <a href="forgot-password.html">I forgot my password</a>
                 </p>
                 <p class="mb-0">
                     <a href="register.html" class="text-center">Register a new membership</a>
-                </p>
+                </p> -->
             </div>
             <!-- /.login-card-body -->
         </div>
@@ -55,6 +58,8 @@
     <!-- AdminLTE App -->
     <script src="<?= BASEURL ?>/public/template/AdminLTE-3.2.0/dist/js/adminlte.min.js"></script>
     <script src="<?= BASEURL ?>/public/library/jquery-validation-1.19.5/dist/jquery.validate.js"></script>
+    <script src="<?= BASEURL ?>/public/js/utils/index.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <?php
     if (isset($custom_js)) {
         echo $custom_js;

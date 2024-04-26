@@ -2,6 +2,13 @@
 
 class Peran extends Controller
 {
+    public function __construct()
+    {
+        $utils = new Utils();
+        $utils->notLogin();
+    }
+
+
     public function dataTables()
     {
         $peranModel = $this->model('Peran_model');

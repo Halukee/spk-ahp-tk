@@ -2,6 +2,13 @@
 
 class WaliMurid extends Controller
 {
+    public function __construct()
+    {
+        $utils = new Utils();
+        $utils->notLogin();
+    }
+
+
     public function dataTables()
     {
         $waliMuridModel = $this->model('WaliMurid_model');

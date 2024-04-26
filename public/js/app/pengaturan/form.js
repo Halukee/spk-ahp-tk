@@ -1,21 +1,52 @@
 var body = $('body');
 var formSubmit = document.getElementById("form-submit");
+
+var is_edit = $('input[name="is_edit"]').val();
+var rulesAdd = {
+    gambar_pengaturan: "required",
+}
+var rulesMessages = {
+    gambar_pengaturan: "Masukan nama pembuat aplikasi",
+}
+
+if(is_edit){
+    rulesAdd = {};
+    rulesMessages = {};
+}
+
 var validate = $("#form-submit").validate({
     rules: {
         nama_pengaturan: "required",
         pembuat_pengaturan: "required",
-        gambar_pengaturan: "required",
         nokontak_pengaturan: "required",
         alamat_pengaturan: "required",
+        ...rulesAdd,
     },
     messages: {
         nama_pengaturan: "Masukan nama aplikasi",
         pembuat_pengaturan: "Masukan nama pembuat aplikasi",
-        gambar_pengaturan: "Masukan gambar aplikasi",
         nokontak_pengaturan: "Masukan no. kontak aplikasi",
         alamat_pengaturan: "Masukan alamat",
+        ...rulesMessages
     }
 });
+
+var loadFormData = () => {
+    $.ajax({
+        url: `${baseurl}/Pengaturan/create`,
+        type: 'get',
+        dataType: 'text',
+        beforeSend: function(){
+            $('#load_output_form').removeClass('d-none');
+        },
+        success: function(data){
+            $('.output_form').html(data);
+        },
+        complete: function(){
+            $('#load_output_form').addClass('d-none');
+        }
+    })
+}
 
 select2Standard({
     parent: '#modalNormal',
@@ -51,6 +82,7 @@ function submitData() {
                         icon: "success",
                         confirmButtonText: "OK",
                     });
+                    loadFormData();
                 },
                 error: function (jqXHR, exception) {
                     $("#btn-submit").attr("disabled", false);

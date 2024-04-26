@@ -1,7 +1,12 @@
+<?php
+$utils = new Utils();
+$myProfile = $utils->myProfile();
+$settingApp = $utils->settingApp();
+?>
 <aside class="main-sidebar sidebar-dark-primary elevation-4">
     <!-- Brand Logo -->
     <a href="<?= BASEURL ?>/Dashboard" class="brand-link">
-        <img src="<?= BASEURL ?>/public/image/icon.png" alt="SPK AHP" class="brand-image img-circle elevation-3" style="opacity: .8">
+        <img src="<?= BASEURL ?>/uploads/pengaturan/<?= $settingApp['gambar_pengaturan'] ?>" alt="SPK AHP" class="brand-image img-circle elevation-3" style="opacity: .8; width: 40px; height: 40px;">
         <span class="brand-text font-weight-light">SPK AHP</span>
     </a>
 
@@ -10,10 +15,10 @@
         <!-- Sidebar user panel (optional) -->
         <div class="user-panel mt-3 pb-3 mb-3 d-flex">
             <div class="image">
-                <img src="<?= BASEURL ?>/public/template/AdminLTE-3.2.0/dist/img/user2-160x160.jpg" class="img-circle elevation-2" alt="User Image">
+                <img src="<?= BASEURL ?>/public/image/<?= $myProfile['jeniskelamin_profile'] == 'L' ? 'male.png' : 'female.png' ?>" class="img-circle elevation-2" alt="<?= $myProfile['jeniskelamin_profile'] == 'L' ? 'male.png' : 'female.png' ?>" style="width: 40px; height: 40px;">
             </div>
             <div class="info">
-                <a href="<?= BASEURL ?>/Profile" class="d-block">Admin Profile</a>
+                <a href="<?= BASEURL ?>/Profile" class="d-block"><?= $myProfile['nama_profile'] ?></a>
             </div>
         </div>
 

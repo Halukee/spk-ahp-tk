@@ -9,7 +9,48 @@ var validate = $("#form-submit").validate({
     }
 });
 
-$(document).ready(function(){
-    
+var body = $('body');
+var baseurl = $('.baseurl').data('value');
 
+$(document).ready(function(){
+    body.on('click', '#btn-submit', function(e){
+        e.preventDefault();
+        var formData = $("#form-submit").serialize();
+        $.ajax({
+            type: "post",
+            url: $("#form-submit").attr("action"),
+            data: formData,
+            dataType: "json",
+            beforeSend: function () {
+                $("#btn-submit").attr("disabled", true);
+                $("#btn-submit").html(disableButton);
+            },
+            success: function (data) {
+                Swal.fire({
+                    title: data.title,
+                    text: data.message,
+                    icon: data.status ? 'success' : 'error',
+                    confirmButtonText: "OK",
+                }).then(function(){
+                    if(data.status){
+                        window.location.href = `${baseurl}/Dashboard`;
+                    }
+                });
+            },
+            error: function (jqXHR, exception) {
+                $("#btn-submit").attr("disabled", false);
+                $("#btn-submit").html(enableButton);
+                Swal.fire({
+                    title: 'Failed',
+                    text: JSON.parse(jqXHR.responseText).message,
+                    icon: "error",
+                    confirmButtonText: "OK",
+                });
+            },
+            complete: function () {
+                $("#btn-submit").attr("disabled", false);
+                $("#btn-submit").html(enableButton);
+            },
+        });
+    })
 })

@@ -16,6 +16,12 @@ class Kriteria_model
         return $this->db->resultSet();
     }
 
+    public function countAll()
+    {
+        $this->db->query('SELECT COUNT(*) as total FROM ' . $this->table);
+        return $this->db->single();
+    }
+
     public function getById($id)
     {
         $this->db->query('SELECT * FROM ' . $this->table . ' WHERE id=:id');

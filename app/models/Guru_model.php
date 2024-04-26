@@ -9,6 +9,12 @@ class Guru_model extends Controller
     JOIN role_user on users.id = role_user.users_id
     JOIN roles on roles.id = role_user.roles_id';
 
+    private $countDefault = 'SELECT COUNT(*) as total FROM users
+JOIN profile on profile.users_id = users.id
+JOIN role_user on users.id = role_user.users_id
+JOIN roles on roles.id = role_user.roles_id';
+
+
     public function __construct()
     {
         $this->db = new Database;
@@ -19,6 +25,12 @@ class Guru_model extends Controller
         $this->db->query($this->stringDefault . ' WHERE LOWER(roles.nama_roles) = :nama_roles');
         $this->db->bind('nama_roles', 'guru');
         return $this->db->resultSet();
+    }
+    public function countAll()
+    {
+        $this->db->query($this->countDefault . ' WHERE LOWER(roles.nama_roles) = :nama_roles');
+        $this->db->bind('nama_roles', 'guru');
+        return $this->db->single();
     }
 
     public function getById($id)
@@ -40,7 +52,7 @@ class Guru_model extends Controller
         $this->db->query($query);
         $this->db->bind('username_users', $data['username_users']);
         $this->db->bind('password_users', md5($data['password_users']));
-        $this->db->bind('remember_users', $data['remember_users'] ?? null);
+
         $this->db->bind('email_users', $data['email_users']);
         $this->db->execute();
         $users_id = $this->db->lastId();
@@ -94,7 +106,7 @@ class Guru_model extends Controller
         $query = "UPDATE users SET 
         username_users = :username_users, 
         password_users = :password_users, 
-        remember_users = :remember_users, 
+        
         email_users = :email_users 
         WHERE id = :id";
 
@@ -105,7 +117,7 @@ class Guru_model extends Controller
         } else {
             $this->db->bind('password_users', ($data['password_users']));
         }
-        $this->db->bind('remember_users', $data['remember_users'] ?? null);
+
         $this->db->bind('email_users', $data['email_users']);
         $this->db->bind('id', $id);
         $this->db->execute();
