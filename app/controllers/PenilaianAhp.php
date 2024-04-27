@@ -93,4 +93,14 @@ class PenilaianAhp extends Controller
             'data_statis' => $this->datastatis,
         ]);
     }
+
+    public function prosesAhp()
+    {
+        $data = $_POST;
+        $output = Utils::perhitunganAHP($data, $this->datastatis);
+        if (isset($data['is_kriteria'])) {
+            $_SESSION['ahp_kriteria'] = $output;
+        }
+        echo json_encode($output);
+    }
 }

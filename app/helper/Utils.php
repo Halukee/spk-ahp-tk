@@ -140,4 +140,82 @@ class Utils extends Controller
         $myProfile = $this->model('Users_model')->myProfile($_SESSION['users_id']);
         return $myProfile;
     }
+
+    public static function perhitunganAHP($data, $datastatis)
+    {
+        $save_metode = [];
+        // matriks perbandingan
+        $matrix = $data['matrix'];
+        $save_metode['matriks_perbandingan'] = $matrix;
+
+        $matrix_perbandingan = [];
+        foreach ($matrix as $kriteria_id1 => $item1) {
+            foreach ($item1 as $kriteria_id2 => $item2) {
+                $matrix_perbandingan[$kriteria_id2][$kriteria_id1] = $item2;
+            }
+        }
+        // hasil perhitungan kriteria
+        $sum_matrix = [];
+        foreach ($matrix_perbandingan as $kriteria_id2 => $item) {
+            $sum_matrix[$kriteria_id2] = array_sum($item);
+        }
+        $save_metode['hasil_perhitungan'] = $sum_matrix;
+
+        // normalisasi kriteria
+        $normalisasi_kriteria = [];
+        foreach ($matrix_perbandingan as $kriteria_id1 => $item1) {
+            foreach ($item1 as $kriteria_id2 => $item2) {
+                $get_sum_matrix = $sum_matrix[$kriteria_id1];
+                $normalisasi_kriteria[$kriteria_id1][$kriteria_id2] = $item2 / $get_sum_matrix;
+            }
+        }
+
+        // total normalisasi kriteria
+        $total_normalisasi_kriteria = [];
+        foreach ($normalisasi_kriteria as $kriteria_id1 => $item1) {
+            $total_normalisasi_kriteria[$kriteria_id1] = round(array_sum($item1));
+        }
+
+        // perhitungan bobot prioritas
+        $invers_normalisasi_kriteria = [];
+        foreach ($normalisasi_kriteria as $kriteria_id1 => $item1) {
+            foreach ($item1 as $kriteria_id2 => $item2) {
+                $invers_normalisasi_kriteria[$kriteria_id2][$kriteria_id1] = $item2;
+            }
+        }
+        $save_metode['normalisasi'] = $invers_normalisasi_kriteria;
+
+        $bobot_prioritas = [];
+        foreach ($invers_normalisasi_kriteria as $kriteria_id2 => $item1) {
+            $bobot_prioritas[$kriteria_id2] = array_sum($item1);
+        }
+        $save_metode['row_normalisasi'] = $bobot_prioritas;
+        $save_metode['jumlah_row_normalisasi'] = array_sum($bobot_prioritas);
+
+
+        $bobot_prioritas_fix = [];
+        foreach ($bobot_prioritas as $kriteria_id2 => $item1) {
+            $bobot_prioritas_fix[$kriteria_id2] = $item1 / array_sum($total_normalisasi_kriteria);
+        }
+        $total_bobot_prioritas_fix = array_sum($bobot_prioritas_fix);
+        $save_metode['perhitungan_bobot_prioritas'] = $bobot_prioritas_fix;
+        $save_metode['jumlah_perhitungan_bobot_prioritas'] = $total_bobot_prioritas_fix;
+
+        $eigen_max = [];
+        foreach ($bobot_prioritas_fix as $kriteria_id2 => $item) {
+            $eigen_max[$kriteria_id2] = $item * $sum_matrix[$kriteria_id2];
+        }
+        $total_eigen_max = array_sum($eigen_max);
+        $save_metode['eigen_max'] = $eigen_max;
+        $save_metode['jumlah_eigen_max'] = array_sum($eigen_max);
+
+        $count_matrix = count($matrix_perbandingan);
+        $ci = ($total_eigen_max - $count_matrix) / ($count_matrix - 1);
+        $cr = $ci / $datastatis['random_index'][$count_matrix];
+
+        $save_metode['ci'] = $ci;
+        $save_metode['cr'] = $cr;
+
+        return $save_metode;
+    }
 }
