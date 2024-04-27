@@ -50,11 +50,6 @@ var validate = $("#form-submit").validate({
     }
 });
 
-select2Standard({
-    parent: '#modalNormal',
-    selector: '.select2',
-})
-
 $(document).ready(function(){
 formSubmit.addEventListener("submit", function (event) {
     event.preventDefault();

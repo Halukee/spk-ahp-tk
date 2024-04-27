@@ -96,7 +96,6 @@ function basicDeleteConfirmDatatable({
     dataFunction = () => {},
 }) {
     var text = text ? text : "Benar ingin menghapus data ini?";
-
     Swal.fire({
         title: "Konfirmasi",
         text: text,

@@ -43,7 +43,7 @@ $settingApp = $utils->settingApp();
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a href="<?= BASEURL ?>/penilaianAhp" class="nav-link <?= Utils::urlNow() == 'penilaianAhp' ? 'active' : '' ?>">
+                    <a href="<?= BASEURL ?>/PenilaianAhp" class="nav-link <?= Utils::urlNow() == 'PenilaianAhp' ? 'active' : '' ?>">
                         <i class="nav-icon fa-solid fa-note-sticky"></i>
                         <p>
                             Penilaian AHP
