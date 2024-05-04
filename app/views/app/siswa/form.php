@@ -3,6 +3,12 @@
     <input type="hidden" name="password_old" value="<?= isset($data['row']) ? $data['row']['password_users'] ?? '' : '' ?>">
     <div class="modal-body">
         <div class="form-group row">
+            <label for="" class="col-lg-4">Kode Alternatif</label>
+            <div class="col-lg-8">
+                <input type="text" name="kode_profile" placeholder="Kode Profile..." class="form-control" value="<?= isset($data['row']) ? $data['row']['kode_profile'] ?? $data['kode_profile'] : $data['kode_profile'] ?>" readonly>
+            </div>
+        </div>
+        <div class="form-group row">
             <label for="" class="col-lg-4">Username</label>
             <div class="col-lg-8">
                 <input type="text" name="username_users" placeholder="Username..." class="form-control" value="<?= isset($data['row']) ? $data['row']['username_users'] ?? '' : '' ?>">

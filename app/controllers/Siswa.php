@@ -85,6 +85,7 @@ class Siswa extends Controller
 
         $action = BASEURL . '/Siswa/store/';
         $data['action'] = $action;
+        $data['kode_profile'] = $siswaModel->getKode();
 
         ob_start();
         include_once $this->view('app/siswa/form', $data);
@@ -99,6 +100,8 @@ class Siswa extends Controller
 
         $data['action'] = $action;
         $data['row'] = $siswaModel->getById($id);
+        $data['kode_profile'] = $siswaModel->getKode();
+
         ob_start();
         include_once $this->view('app/siswa/form', $data);
         $content = ob_get_clean();

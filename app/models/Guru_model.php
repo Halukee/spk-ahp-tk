@@ -45,22 +45,21 @@ JOIN roles on roles.id = role_user.roles_id';
 
     public function create($data)
     {
-        $query = "INSERT INTO users
-                    VALUES
-                  ('', :username_users, :password_users, :remember_users, :email_users)";
+        $query = "INSERT INTO users (username_users, password_users, email_users)
+        VALUES (:username_users, :password_users, :email_users)";
 
         $this->db->query($query);
         $this->db->bind('username_users', $data['username_users']);
         $this->db->bind('password_users', md5($data['password_users']));
-
         $this->db->bind('email_users', $data['email_users']);
+
         $this->db->execute();
         $users_id = $this->db->lastId();
 
         // insert profile
-        $query = "INSERT INTO profile
-        VALUES
-      ('', :nama_profile, :alamat_profile, :jeniskelamin_profile, :nomorhp_profile, :users_id)";
+        $query = "INSERT INTO profile (nama_profile, alamat_profile, jeniskelamin_profile, nomorhp_profile, users_id)
+        VALUES (:nama_profile, :alamat_profile, :jeniskelamin_profile, :nomorhp_profile, :users_id)";
+
 
         $this->db->query($query);
         $this->db->bind('nama_profile', $data['nama_profile']);

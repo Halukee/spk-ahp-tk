@@ -146,7 +146,10 @@ class Utils extends Controller
         $save_metode = [];
         // matriks perbandingan
         $matrix = $data['matrix'];
+        $matrixOriginal = $data['matrix_original'];
+
         $save_metode['matriks_perbandingan'] = $matrix;
+        $save_metode['matriks_perbandingan_original'] = $matrixOriginal;
 
         $matrix_perbandingan = [];
         foreach ($matrix as $kriteria_id1 => $item1) {
@@ -217,5 +220,10 @@ class Utils extends Controller
         $save_metode['cr'] = $cr;
 
         return $save_metode;
+    }
+
+    public static function formatRupiah($value)
+    {
+        return number_format($value, 3, '.', ',');
     }
 }

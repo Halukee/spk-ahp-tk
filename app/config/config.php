@@ -1,6 +1,5 @@
 <?php
-
-define('BASEURL', 'http://localhost/spk_ahptk');
+define('BASEURL', 'http://localhost/spk-ahp-tk');
 
 // DB
 define('DB_HOST', 'localhost');

@@ -4,7 +4,7 @@ class Siswa_model extends Controller
 {
     private $table = 'users';
     private $db;
-    private $stringDefault = 'SELECT users.*, profile.nama_profile, profile.alamat_profile, profile.jeniskelamin_profile, profile.nomorhp_profile, roles.nama_roles FROM users
+    private $stringDefault = 'SELECT users.*, profile.nama_profile, profile.alamat_profile, profile.jeniskelamin_profile, profile.nomorhp_profile, profile.kode_profile, roles.nama_roles FROM users
     JOIN profile on profile.users_id = users.id
     JOIN role_user on users.id = role_user.users_id
     JOIN roles on roles.id = role_user.roles_id';
@@ -13,6 +13,11 @@ class Siswa_model extends Controller
     JOIN profile on profile.users_id = users.id
     JOIN role_user on users.id = role_user.users_id
     JOIN roles on roles.id = role_user.roles_id';
+
+    private $stringMaxKodeProfile = 'SELECT users.*, profile.nama_profile, profile.alamat_profile, profile.jeniskelamin_profile, profile.nomorhp_profile, MAX(SUBSTRING(profile.kode_profile, 2)) AS kode_profile, roles.nama_roles FROM users
+JOIN profile on profile.users_id = users.id
+JOIN role_user on users.id = role_user.users_id
+JOIN roles on roles.id = role_user.roles_id';
 
     public function __construct()
     {
@@ -45,22 +50,21 @@ class Siswa_model extends Controller
 
     public function create($data)
     {
-        $query = "INSERT INTO users
-                    VALUES
-                  ('', :username_users, :password_users, :remember_users, :email_users)";
+        $query = "INSERT INTO users (username_users, password_users, email_users)
+        VALUES (:username_users, :password_users, :email_users)";
 
         $this->db->query($query);
         $this->db->bind('username_users', $data['username_users']);
         $this->db->bind('password_users', md5($data['password_users']));
-
         $this->db->bind('email_users', $data['email_users']);
         $this->db->execute();
         $users_id = $this->db->lastId();
 
+
         // insert profile
         $query = "INSERT INTO profile
         VALUES
-      ('', :nama_profile, :alamat_profile, :jeniskelamin_profile, :nomorhp_profile, :users_id)";
+      ('', :nama_profile, :alamat_profile, :jeniskelamin_profile, :nomorhp_profile, :users_id, :kode_profile)";
 
         $this->db->query($query);
         $this->db->bind('nama_profile', $data['nama_profile']);
@@ -68,6 +72,7 @@ class Siswa_model extends Controller
         $this->db->bind('jeniskelamin_profile', $data['jeniskelamin_profile']);
         $this->db->bind('nomorhp_profile', $data['nomorhp_profile']);
         $this->db->bind('users_id', $users_id);
+        $this->db->bind('kode_profile', $data['kode_profile']);
         $this->db->execute();
 
         // search role user
@@ -141,5 +146,22 @@ class Siswa_model extends Controller
         $this->db->execute();
 
         return true;
+    }
+
+    public function getKode()
+    {
+        $this->db->query($this->stringMaxKodeProfile . '  WHERE LOWER(roles.nama_roles) = :nama_roles');
+        $this->db->bind('nama_roles', 'siswa');
+        $maxKode = $this->db->single();
+
+        if ($maxKode) {
+            $nextNumber = intval($maxKode['kode_profile']) + 1;
+            $nextKode = 'A' . sprintf('%03d', $nextNumber);
+        } else {
+            // Jika tidak ada data, kode awal adalah K001
+            $nextKode = 'A001';
+        }
+
+        return $nextKode;
     }
 }
