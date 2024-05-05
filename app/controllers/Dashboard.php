@@ -22,6 +22,8 @@ class Dashboard extends Controller
         $data['waliMurid'] = $this->model('WaliMurid_model')->countAll()['total'];
         $data['admin'] = $this->model('Admin_model')->countAll()['total'];
         $data['kriteria'] = $this->model('Kriteria_model')->countAll()['total'];
+        $data['nilai'] = $this->model('Nilai_model')->countAll()['total'];
+        $data['absensi'] = $this->model('Absensi_model')->countAll()['total'];
 
         ob_start();
         include_once $this->view('app/dashboard/index', $data);

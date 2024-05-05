@@ -81,7 +81,7 @@
           <!-- small box -->
           <div class="small-box bg-dark">
               <div class="inner">
-                  <h3>45</h3>
+                  <h3><?= $data['absensi'] ?></h3>
                   <p>Absensi</p>
               </div>
               <div class="icon">
@@ -95,7 +95,7 @@
           <!-- small box -->
           <div class="small-box bg-info">
               <div class="inner">
-                  <h3>24</h3>
+                  <h3><?= isset($_SESSION['hasil_akhir']['ranking']) ? count($_SESSION['hasil_akhir']['ranking']) : 0 ?></h3>
 
                   <p>Perkembangan</p>
               </div>
@@ -110,7 +110,7 @@
           <!-- small box -->
           <div class="small-box bg-primary">
               <div class="inner">
-                  <h3>77</h3>
+                  <h3><?= $data['nilai'] ?></h3>
                   <p>Nilai</p>
               </div>
               <div class="icon">

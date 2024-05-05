@@ -1,0 +1,100 @@
+<?php
+
+class Nilai_model extends Controller
+{
+    private $table = 'nilai';
+    private $db;
+    private $stringDefault = 'SELECT nilai.*, profile.nama_profile, profile.alamat_profile, profile.jeniskelamin_profile, profile.nomorhp_profile, profile.kode_profile, roles.nama_roles FROM nilai
+    JOIN users on nilai.users_id = users.id
+    JOIN profile on profile.users_id = users.id
+    JOIN role_user on users.id = role_user.users_id
+    JOIN roles on roles.id = role_user.roles_id';
+
+    private $countDefault = 'SELECT COUNT(*) as total FROM nilai
+    JOIN users on nilai.users_id = users.id
+    JOIN profile on profile.users_id = users.id
+    JOIN role_user on users.id = role_user.users_id
+    JOIN roles on roles.id = role_user.roles_id';
+
+    public function __construct()
+    {
+        $this->db = new Database;
+    }
+
+    public function getAll($siswa_id)
+    {
+        $queryText = $this->stringDefault . ' WHERE LOWER(roles.nama_roles) = :nama_roles';
+        if ($siswa_id != null) {
+            $queryText .= ' AND users.id = :siswa_id';
+        }
+        $this->db->query($queryText);
+        $this->db->bind('nama_roles', 'siswa');
+        if ($siswa_id != null) {
+            $this->db->bind('siswa_id', $siswa_id);
+        }
+        return $this->db->resultSet();
+    }
+
+    public function countAll()
+    {
+        $this->db->query($this->countDefault . ' WHERE LOWER(roles.nama_roles) = :nama_roles');
+        $this->db->bind('nama_roles', 'siswa');
+        return $this->db->single();
+    }
+
+    public function getById($id)
+    {
+        $this->db->query($this->stringDefault . ' 
+        WHERE LOWER(roles.nama_roles) = :nama_roles
+        AND nilai.id = :id');
+        $this->db->bind('nama_roles', 'siswa');
+        $this->db->bind('id', $id);
+        return $this->db->single();
+    }
+
+    public function create($data)
+    {
+        $query = "INSERT INTO nilai (value_nilai, keterangan_nilai, users_id, matapelajaran_nilai)
+        VALUES (:value_nilai, :keterangan_nilai, :users_id, :matapelajaran_nilai)";
+
+        $this->db->query($query);
+        $this->db->bind('value_nilai', $data['value_nilai']);
+        $this->db->bind('keterangan_nilai', $data['keterangan_nilai']);
+        $this->db->bind('users_id', $data['users_id']);
+        $this->db->bind('matapelajaran_nilai', $data['matapelajaran_nilai']);
+        $this->db->execute();
+        return $this->db->rowCount();
+    }
+
+    public function delete($id)
+    {
+        $query = "DELETE FROM nilai WHERE id = :id";
+
+        $this->db->query($query);
+        $this->db->bind('id', $id);
+
+        $this->db->execute();
+
+        return $this->db->rowCount();
+    }
+
+
+    public function update($data, $id)
+    {
+        $query = "UPDATE nilai SET 
+        value_nilai = :value_nilai, 
+        keterangan_nilai = :keterangan_nilai, 
+        users_id = :users_id, 
+        matapelajaran_nilai = :matapelajaran_nilai
+        WHERE id = :id";
+
+        $this->db->query($query);
+        $this->db->bind('value_nilai', $data['value_nilai']);
+        $this->db->bind('keterangan_nilai', $data['keterangan_nilai']);
+        $this->db->bind('users_id', $data['users_id']);
+        $this->db->bind('matapelajaran_nilai', $data['matapelajaran_nilai']);
+        $this->db->bind('id', $id);
+        $this->db->execute();
+        return $this->db->rowCount();
+    }
+}

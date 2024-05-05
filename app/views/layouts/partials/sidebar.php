@@ -128,6 +128,14 @@ $settingApp = $utils->settingApp();
                         </p>
                     </a>
                 </li>
+                <li class="nav-item">
+                    <a href="<?= BASEURL ?>/PerkembanganNilai" class="nav-link <?= Utils::urlNow() == 'PerkembanganNilai' ? 'active' : '' ?>">
+                        <i class="nav-icon fa-solid fa-chart-simple"></i>
+                        <p>
+                            Perkembangan Nilai
+                        </p>
+                    </a>
+                </li>
                 <li class="nav-header">SETTING APLIKASI</li>
                 <li class="nav-item">
                     <a href="<?= BASEURL ?>/Pengaturan" class="nav-link <?= Utils::urlNow() == 'Pengaturan' ? 'active' : '' ?>">

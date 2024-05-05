@@ -35,5 +35,17 @@ $data['statis'] = [
         13 => 1.56,
         14 => 1.57,
         15 => 1.59,
-    ]
+    ],
+    'jenis_absensi' => [
+        'sakit' => 'Sakit',
+        'izin' => 'Izin',
+        'tanpa keterangan' => 'Tanpa Keterangan',
+        'libur resmi' => 'Libur Resmi',
+        'study tour/field trip' => 'Study Tour/Field Trip',
+        'kompetisi/lomba' => 'Kompetisi/Lomba',
+        'perjalanan dinas' => 'Perjalanan Dinas',
+        'kegiatan ekstrakurikuler' => 'Kegiatan Ekstrakurikuler',
+        'pelatihan/kursus' => 'Pelatihan/Kursus',
+        'keperluan agama' => 'Keperluan Agama',
+    ],
 ];

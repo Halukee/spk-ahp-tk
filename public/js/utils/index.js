@@ -93,7 +93,7 @@ function basicDeleteConfirmDatatable({
     urlDelete = "",
     data = {},
     text = "",
-    dataFunction = () => {},
+    dataFunction = () => { },
 }) {
     var text = text ? text : "Benar ingin menghapus data ini?";
     Swal.fire({
@@ -120,7 +120,7 @@ function basicDeleteConfirmDatatable({
                     });
                     datatable.ajax.reload();
                 },
-                error: function(){
+                error: function () {
                     Swal.fire({
                         title: 'Failed',
                         text: JSON.parse(jqXHR.responseText).message,
@@ -433,3 +433,12 @@ const formatDatePayload = () => {
 
     return formattedDate;
 };
+
+const formatTanggalToDb = (tanggalWaktu) => {
+    let inputDateStr = tanggalWaktu;
+    let [datePart, timePart] = inputDateStr.split(" ");
+    let [day, month, year] = datePart.split("/");
+    let formattedDatePart = `${year}-${month}-${day}`;
+    let formattedDate = `${formattedDatePart} ${timePart}`;
+    return formattedDate;
+}

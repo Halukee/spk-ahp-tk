@@ -226,4 +226,43 @@ class Utils extends Controller
     {
         return number_format($value, 3, '.', ',');
     }
+
+    public static function formatTanggal($tanggalWaktu)
+    {
+        $tanggalAwal = $tanggalWaktu;
+        $dateTime = new DateTime($tanggalAwal);
+
+        $tanggalFormatted = $dateTime->format('j F Y H:i');
+
+        $bulanIndonesia = [
+            "January" => "Januari",
+            "February" => "Februari",
+            "March" => "Maret",
+            "April" => "April",
+            "May" => "Mei",
+            "June" => "Juni",
+            "July" => "Juli",
+            "August" => "Agustus",
+            "September" => "September",
+            "October" => "Oktober",
+            "November" => "November",
+            "December" => "Desember"
+        ];
+
+        list($hari, $bulan, $tahun, $jam) = explode(' ', $tanggalFormatted);
+
+        $bulanIndonesiaFormatted = $bulanIndonesia[$bulan];
+
+        $tanggalAkhir = "{$hari} {$bulanIndonesiaFormatted} {$tahun} {$jam}";
+
+        return $tanggalAkhir;
+    }
+    public static function formatDateView($tanggalWaktu)
+    {
+        $originalDate = $tanggalWaktu;
+        $dateTime = new DateTime($originalDate);
+
+        $formattedDate = $dateTime->format('d/m/Y H:i');
+        return $formattedDate;
+    }
 }
