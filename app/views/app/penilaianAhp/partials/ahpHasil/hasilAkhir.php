@@ -16,7 +16,14 @@
                             <th>Nama Alternatif</th>
                             <?php
                             foreach ($data['ahp_alternatif'] as $kriteria_id => $item) { ?>
-                                <th><?= $data['kriteria'][$kriteria_id]['kode_kriteria'] ?></th>
+                            <?php 
+                            $kodeKriteria = $data['kriteria'][$kriteria_id]['kode_kriteria'];
+                            ?>
+                                <th>
+                                <span data-toggle="tooltip" data-placement="top" title="<?= $data['toconvert_kriteria'][$kodeKriteria] ?>">
+                                        <?= $kodeKriteria ?>
+                                    </span>
+                                </th>
                             <?php
                             }
                             ?>

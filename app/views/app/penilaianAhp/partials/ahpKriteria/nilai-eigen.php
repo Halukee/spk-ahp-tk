@@ -16,7 +16,14 @@
                             <?php
                             $no = 1;
                             foreach ($matriksNormalisasi as $kriteria_id1 => $item1) { ?>
-                                <th><?= $data['kriteria'][$kriteria_id1]['kode_kriteria'] ?></th>
+                            <?php 
+                            $kodeKriteria = $data['kriteria'][$kriteria_id1]['kode_kriteria'];
+                            ?>
+                                <th>
+                                    <span data-toggle="tooltip" data-placement="top" title="<?= $data['toconvert_kriteria'][$kodeKriteria]['nama_kriteria'] ?>">
+                                        <?= $kodeKriteria ?>
+                                    </span>
+                                </th>
                             <?php
                             }
                             ?>
@@ -28,8 +35,15 @@
                         $no = 1;
                         $jumlahEigenMax = [];
                         foreach ($matriksNormalisasi as $kriteria_id1 => $item1) { ?>
+                        <?php 
+                        $kodeKriteria = $data['kriteria'][$kriteria_id1]['kode_kriteria'];
+                        ?>
                             <tr>
-                                <td><?= $data['kriteria'][$kriteria_id1]['kode_kriteria'] ?></td>
+                                <td>
+                                    <span data-toggle="tooltip" data-placement="left" title="<?= $data['toconvert_kriteria'][$kodeKriteria]['nama_kriteria'] ?>">
+                                        <?= $kodeKriteria ?>
+                                    </span>
+                                </td>
                                 <?php
                                 foreach ($item1 as $kriteria_id2 => $item) { ?>
                                     <?php

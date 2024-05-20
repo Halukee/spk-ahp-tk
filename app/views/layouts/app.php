@@ -96,6 +96,7 @@
     <script src="<?= BASEURL ?>/public/template/AdminLTE-3.2.0/plugins/moment/moment.min.js"></script>
     <script src="<?= BASEURL ?>/public/template/AdminLTE-3.2.0/plugins/daterangepicker/daterangepicker.js"></script>
     <!-- Tempusdominus Bootstrap 4 -->
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
     <script src="<?= BASEURL ?>/public/template/AdminLTE-3.2.0/plugins/tempusdominus-bootstrap-4/js/tempusdominus-bootstrap-4.min.js"></script>
     <!-- Summernote -->
     <script src="<?= BASEURL ?>/public/template/AdminLTE-3.2.0/plugins/summernote/summernote-bs4.min.js"></script>
@@ -109,6 +110,8 @@
     <script src="<?= BASEURL ?>/public/library/sweetalert2/dist/sweetalert2.min.js"></script>
     <script src="<?= BASEURL ?>/public/library/select2-develop/dist/js/select2.min.js"></script>
     <script src="<?= BASEURL ?>/public/library/datatables/datatables.min.js"></script>
+
+
 
 
     <!-- AdminLTE dashboard demo (This is only for demo purposes) -->

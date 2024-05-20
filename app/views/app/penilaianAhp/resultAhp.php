@@ -28,3 +28,8 @@ $cr = $data['ahp_alternatif']['cr'];
         <i class="fa-solid fa-check"></i> OK
     </button>
 </div>
+
+
+<script>
+     $('[data-toggle="tooltip"]').tooltip();
+</script>

@@ -16,7 +16,14 @@
                             <?php
                             $no = 1;
                             foreach ($matriksNormalisasi as $alternatif_id1 => $item1) { ?>
-                                <th><?= $data['alternatif'][$alternatif_id1]['kode_profile'] ?></th>
+                            <?php 
+                            $kodeProfile = $data['alternatif'][$alternatif_id1]['kode_profile'];
+                            ?>
+                                <th>
+                                <span data-toggle="tooltip" data-placement="top" title="<?= $data['toconvert_alternatif'][$kodeProfile] ?>">
+                                    <?= $kodeProfile ?>
+                                </span>
+                                </th>
                             <?php
                             }
                             ?>
@@ -28,8 +35,15 @@
                         $no = 1;
                         $jumlahBobotPrioritas = [];
                         foreach ($matriksNormalisasi as $alternatif_id1 => $item1) { ?>
+                        <?php 
+                            $kodeProfile = $data['alternatif'][$alternatif_id1]['kode_profile'];
+                            ?>
                             <tr>
-                                <td><?= $data['alternatif'][$alternatif_id1]['kode_profile'] ?></td>
+                                <td>
+                                <span data-toggle="tooltip" data-placement="left" title="<?= $data['toconvert_alternatif'][$kodeProfile] ?>">
+                                    <?= $kodeProfile ?>
+                                </span>
+                                </td>
                                 <?php
                                 foreach ($item1 as $alternatif_id2 => $item) { ?>
                                     <?php

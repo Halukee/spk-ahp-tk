@@ -23,6 +23,7 @@ class PenilaianAhp extends Controller
         $valueMatriks = [];
         $valueMatriksAlternatif = [];
 
+        $dataKriteria = [];
         $data['kriteria'] = $this->model('Kriteria_model')->getAll();
         foreach ($data['kriteria'] as $key1 => $item1) {
             foreach ($data['kriteria'] as $key2 => $item2) {
@@ -74,9 +75,12 @@ class PenilaianAhp extends Controller
 
                 $valueMatriks[$item1['kode_kriteria']][$key2] = $nilai;
             }
+
+            $dataKriteria[$item1['kode_kriteria']] = $item1['nama_kriteria'];
         }
 
         $data['alternatif'] = $this->model('Siswa_model')->getAll();
+        $dataAlternatif = [];
         foreach ($data['alternatif'] as $key1 => $item1) {
             foreach ($data['alternatif'] as $key2 => $item2) {
                 $nilai = null;
@@ -124,10 +128,13 @@ class PenilaianAhp extends Controller
 
                 $valueMatriksAlternatif[$item1['kode_profile']][$key2] = $nilai;
             }
+            $dataAlternatif[$item1['kode_profile']] = $item1['nama_profile'];
         }
 
+        $data['toconvert_alternatif'] = $dataAlternatif;
         $data['value_matrix'] = $valueMatriks;
         $data['value_matrix_alternatif'] = $valueMatriksAlternatif;
+        $data['toconvert_kriteria'] = $dataKriteria;
         $data['breadcrumbs'] = $breadcrumbItems;
         ob_start();
         include_once $this->view('app/penilaianAhp/index', $data);
@@ -184,10 +191,14 @@ class PenilaianAhp extends Controller
         if ($dataGet['tipe'] == 'kriteria') {
             $data['kriteria'] = $this->model('Kriteria_model')->getAll();
             $pushKriteria = [];
+            $dataKriteria = [];
             foreach ($data['kriteria'] as $key => $item) {
                 $pushKriteria[$item['id']] = $item;
+                $dataKriteria[$item['kode_kriteria']] = $item;
             }
             $data['kriteria'] = $pushKriteria;
+            $data['toconvert_kriteria'] = $dataKriteria;
+
             $data['ahp_kriteria'] = $_SESSION['ahp_kriteria'];
             ob_start();
             include_once $this->view('app/penilaianAhp/result', $data);
@@ -197,10 +208,14 @@ class PenilaianAhp extends Controller
             $data['kriteria'] = $this->model('Kriteria_model')->getById($dataGet['kriteria_id']);
             $data['alternatif'] = $this->model('Siswa_model')->getAll();
             $pushAlternatif = [];
+            $dataAlternatif = [];
             foreach ($data['alternatif'] as $key => $item) {
                 $pushAlternatif[$item['id']] = $item;
+                $dataAlternatif[$item['kode_profile']] = $item['nama_profile'];
             }
             $data['alternatif'] = $pushAlternatif;
+            $data['toconvert_alternatif'] = $dataAlternatif;
+
             $data['ahp_alternatif'] = $_SESSION['ahp_alternatif'][$dataGet['kriteria_id']];
             ob_start();
             include_once $this->view('app/penilaianAhp/resultAhp', $data);
@@ -216,10 +231,13 @@ class PenilaianAhp extends Controller
         $data['kriteria'] = $this->model('Kriteria_model')->getAll();
         $pushKriteria = [];
         $save_hasil_akhir = [];
+        $dataKriteria = [];
         foreach ($data['kriteria'] as $key => $item) {
             $pushKriteria[$item['id']] = $item;
+            $dataKriteria[$item['kode_kriteria']] = $item['nama_kriteria'];
         }
         $data['kriteria'] = $pushKriteria;
+        $data['toconvert_kriteria'] = $dataKriteria;
         $pushAlternatif = [];
         foreach ($data['ahp_alternatif'] as $kriteria_id => $jenis) {
             foreach ($jenis as $keyJenis => $itemAlternatif) {

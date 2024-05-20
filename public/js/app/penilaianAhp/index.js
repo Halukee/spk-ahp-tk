@@ -59,6 +59,10 @@ var loadDataAhp = () => {
     }
 }
 
+$(function () {
+    $('[data-toggle="tooltip"]').tooltip()
+})
+
 $(document).ready(function () {
     loadData();
     resultDataAhp();
