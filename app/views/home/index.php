@@ -18,6 +18,9 @@
     <div class="col-4">
       <button type="submit" class="btn btn-primary btn-block" id="btn-submit">Sign In</button>
     </div>
+    <p class="mb-0">
+        <a href="<?= BASEURL ?>/Register" class="text-center">Registrasi Siswa</a>
+      </p>
     <!-- /.col -->
   </div>
 </form>

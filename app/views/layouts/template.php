@@ -29,6 +29,7 @@ $settingApp = $utils->settingApp();
 <body class="hold-transition login-page">
     <div class="login-box">
         <div class="login-logo">
+            <img src="<?= BASEURL ?>/uploads/pengaturan/<?= $settingApp['gambar_pengaturan'] ?>" alt="Logo Aplikasi" width="200px;"> <br />
             <a href="<?= BASEURL ?>"><b>SPK</b> <?= $settingApp['nama_pengaturan'] ?></a>
         </div>
         <!-- /.login-logo -->

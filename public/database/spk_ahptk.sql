@@ -11,7 +11,7 @@
  Target Server Version : 100428 (10.4.28-MariaDB)
  File Encoding         : 65001
 
- Date: 20/05/2024 22:51:54
+ Date: 20/05/2024 23:23:33
 */
 
 SET NAMES utf8mb4;
@@ -171,7 +171,7 @@ CREATE TABLE `profile`  (
   PRIMARY KEY (`id`) USING BTREE,
   INDEX `users_id`(`users_id` ASC) USING BTREE,
   CONSTRAINT `profile_ibfk_1` FOREIGN KEY (`users_id`) REFERENCES `users` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE = InnoDB AUTO_INCREMENT = 18 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 21 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of profile
@@ -186,6 +186,9 @@ INSERT INTO `profile` VALUES (10, 'siswa126', 'alamat siswa126', 'L', '923898329
 INSERT INTO `profile` VALUES (14, 'guru124', 'alamat guru124', 'L', '83982379', 21, NULL);
 INSERT INTO `profile` VALUES (15, 'walimurid124', 'alamat walimurid124', 'L', '823923798', 22, NULL);
 INSERT INTO `profile` VALUES (16, 'admin124', 'alamat admin124', 'L', '8923723897', 23, NULL);
+INSERT INTO `profile` VALUES (18, 'Siswadaftar123', 'alamat siswa daftar 123', 'L', '039287329827', 25, 'A005');
+INSERT INTO `profile` VALUES (19, 'siswa124', 'alamat siswa124', 'L', '0948678', 26, 'A006');
+INSERT INTO `profile` VALUES (20, 'Siswa125', 'alamat siswa125', 'L', '2389723897', 27, 'A007');
 
 -- ----------------------------
 -- Table structure for role_user
@@ -200,7 +203,7 @@ CREATE TABLE `role_user`  (
   INDEX `roles_id`(`roles_id` ASC) USING BTREE,
   CONSTRAINT `role_user_ibfk_1` FOREIGN KEY (`users_id`) REFERENCES `users` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
   CONSTRAINT `role_user_ibfk_2` FOREIGN KEY (`roles_id`) REFERENCES `roles` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE = InnoDB AUTO_INCREMENT = 18 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 21 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of role_user
@@ -217,6 +220,9 @@ INSERT INTO `role_user` VALUES (13, 20, 2);
 INSERT INTO `role_user` VALUES (14, 21, 2);
 INSERT INTO `role_user` VALUES (15, 22, 6);
 INSERT INTO `role_user` VALUES (16, 23, 1);
+INSERT INTO `role_user` VALUES (18, 25, 3);
+INSERT INTO `role_user` VALUES (19, 26, 3);
+INSERT INTO `role_user` VALUES (20, 27, 3);
 
 -- ----------------------------
 -- Table structure for roles
@@ -267,7 +273,7 @@ CREATE TABLE `users`  (
   `email_users` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
   `token_expiration` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL,
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 25 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 28 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of users
@@ -285,5 +291,8 @@ INSERT INTO `users` VALUES (20, 'guru124', '5f4dcc3b5aa765d61d8327deb882cf99', N
 INSERT INTO `users` VALUES (21, 'guru124', '5f4dcc3b5aa765d61d8327deb882cf99', NULL, 'guru124@gmail.com', NULL);
 INSERT INTO `users` VALUES (22, 'walimurid124', '5f4dcc3b5aa765d61d8327deb882cf99', NULL, 'walimurid124@gmail.com', NULL);
 INSERT INTO `users` VALUES (23, 'admin124', 'd325ffe191a600f562fb59ae52ccbc75', NULL, 'admin124@gmail.com', NULL);
+INSERT INTO `users` VALUES (25, 'siswadaftar123', '5f4dcc3b5aa765d61d8327deb882cf99', NULL, 'siswadaftar123@gmail.com', NULL);
+INSERT INTO `users` VALUES (26, 'siswa124', '5f4dcc3b5aa765d61d8327deb882cf99', NULL, 'siswa124@gmail.com', NULL);
+INSERT INTO `users` VALUES (27, 'siswa125', '5f4dcc3b5aa765d61d8327deb882cf99', NULL, 'siswa125@gmail.com', NULL);
 
 SET FOREIGN_KEY_CHECKS = 1;
