@@ -16,6 +16,9 @@ class Dashboard extends Controller
             ['url' => BASEURL . '/Dashboard', 'label' => 'Home'],
         ];
 
+        $sessionHasilAkhir = isset($_SESSION['hasil_akhir']['ranking']) ? count($_SESSION['hasil_akhir']['ranking']) : 0;
+        $dataHasilAkhir = $this->model('HasilAkhir_model')->getHasilAkhir();
+
         $data['breadcrumbs'] = $breadcrumbItems;
         $data['siswa'] = $this->model('Siswa_model')->countAll()['total'];
         $data['guru'] = $this->model('Guru_model')->countAll()['total'];
@@ -24,6 +27,7 @@ class Dashboard extends Controller
         $data['kriteria'] = $this->model('Kriteria_model')->countAll()['total'];
         $data['nilai'] = $this->model('Nilai_model')->countAll()['total'];
         $data['absensi'] = $this->model('Absensi_model')->countAll()['total'];
+        $data['hasil_akhir'] = $dataHasilAkhir != null ? count(json_decode($dataHasilAkhir, true)['ranking']) : $sessionHasilAkhir;
 
         ob_start();
         include_once $this->view('app/dashboard/index', $data);

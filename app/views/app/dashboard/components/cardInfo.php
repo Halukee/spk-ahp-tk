@@ -95,7 +95,7 @@
           <!-- small box -->
           <div class="small-box bg-info">
               <div class="inner">
-                  <h3><?= isset($_SESSION['hasil_akhir']['ranking']) ? count($_SESSION['hasil_akhir']['ranking']) : 0 ?></h3>
+                  <h3><?= $data['hasil_akhir'] ?></h3>
 
                   <p>Perkembangan</p>
               </div>

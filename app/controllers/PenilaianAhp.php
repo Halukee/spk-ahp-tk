@@ -27,10 +27,17 @@ class PenilaianAhp extends Controller
         $data['kriteria'] = $this->model('Kriteria_model')->getAll();
         foreach ($data['kriteria'] as $key1 => $item1) {
             foreach ($data['kriteria'] as $key2 => $item2) {
+               
                 $nilai = null;
                 $kriteria_id1 = $item1['id'];
                 $kriteria_id2 = $item2['id'];
-                $dataSelected = $_SESSION['ahp_kriteria']['matriks_perbandingan_original'][$kriteria_id1][$kriteria_id2] ?? '';
+
+                $dataMatriksKriteria = json_decode($this->model('MatriksAhp_model')->getAhpKriteria(), true);
+                if($dataMatriksKriteria != null){
+                    $dataSelected = $dataMatriksKriteria['matriks_perbandingan_original'][$kriteria_id1][$kriteria_id2] ?? '';
+                } else {
+                    $dataSelected = $_SESSION['ahp_kriteria']['matriks_perbandingan_original'][$kriteria_id1][$kriteria_id2] ?? '';
+                }
 
                 if ($key1 == $key2) {
                     $nilai = '<span 
@@ -155,10 +162,21 @@ class PenilaianAhp extends Controller
 
     public function resultDataAhp()
     {
-        $ahpKriteria = isset($_SESSION['ahp_kriteria']) ? $_SESSION['ahp_kriteria'] : [];
-        $ahpAlternatif = isset($_SESSION['ahp_alternatif']) ? $_SESSION['ahp_alternatif'] : [];
-        $kriteria = $this->model('Kriteria_model')->getAll();
+        $dataMatriksKriteria = json_decode($this->model('MatriksAhp_model')->getAhpKriteria(), true);
+        $dataMatriksAlternatif = $this->model('MatriksAlternatif_model')->getAhpAlternatif();
+        $dataAhpAlternatif = [];
+        foreach ($dataMatriksAlternatif as $key => $item) {
+            $getAhpAlternatif = json_decode($item['ahp_alternatif'], true);
+            foreach ($getAhpAlternatif as $alternatif_id => $itemValue) {
+                $dataAhpAlternatif[$alternatif_id] = $itemValue;
+            }
+        }
 
+        $ahpKriteria = $dataMatriksKriteria !== null ? $dataMatriksKriteria : (isset($_SESSION['ahp_kriteria']) ? $_SESSION['ahp_kriteria'] : []);
+
+        $ahpAlternatif = count($dataAhpAlternatif) > 0 ? $dataAhpAlternatif : (isset($_SESSION['ahp_alternatif']) ? $_SESSION['ahp_alternatif'] : []);
+
+        $kriteria = $this->model('Kriteria_model')->getAll();
         echo json_encode([
             'ahp_kriteria' => $ahpKriteria,
             'ahp_alternatif' => $ahpAlternatif,
@@ -177,10 +195,17 @@ class PenilaianAhp extends Controller
     {
         $data = $_POST;
         $output = Utils::perhitunganAHP($data, $this->datastatis);
+        $dataOutput = json_encode($output);
         if ($data['is_kriteria']) {
+            $this->model('MatriksAhp_model')->updateMatriksKriteria($dataOutput);    
             $_SESSION['ahp_kriteria'] = $output;
         } else {
-            $_SESSION['ahp_alternatif'][$data['kriteria_id']] = $output;
+            $kriteria_id = $data['kriteria_id'];
+            $setOutput[$data['kriteria_id']] = $output;
+            $setOutput = json_encode($setOutput);
+            $this->model('MatriksAlternatif_model')->updateMatriksAlternatif($kriteria_id, $setOutput); 
+
+            $_SESSION['ahp_alternatif'][$data['kriteria_id']] = $output;   
         }
         echo json_encode($data);
     }
@@ -188,6 +213,21 @@ class PenilaianAhp extends Controller
     public function resultAhp()
     {
         $dataGet = $_GET;
+        $dataMatriksKriteria = json_decode($this->model('MatriksAhp_model')->getAhpKriteria(), true);
+        $dataMatriksAlternatif = $this->model('MatriksAlternatif_model')->getAhpAlternatif();
+        $dataAhpAlternatif = [];
+        foreach ($dataMatriksAlternatif as $key => $item) {
+            $getAhpAlternatif = json_decode($item['ahp_alternatif'], true);
+            foreach ($getAhpAlternatif as $alternatif_id => $itemValue) {
+                $dataAhpAlternatif[$alternatif_id] = $itemValue;
+            }
+        }
+
+        $ahpKriteria = $dataMatriksKriteria !== null ? $dataMatriksKriteria : (isset($_SESSION['ahp_kriteria']) ? $_SESSION['ahp_kriteria'] : []);
+
+        $ahpAlternatif = count($dataAhpAlternatif) > 0 ? $dataAhpAlternatif : (isset($_SESSION['ahp_alternatif']) ? $_SESSION['ahp_alternatif'] : []);
+
+
         if ($dataGet['tipe'] == 'kriteria') {
             $data['kriteria'] = $this->model('Kriteria_model')->getAll();
             $pushKriteria = [];
@@ -199,7 +239,7 @@ class PenilaianAhp extends Controller
             $data['kriteria'] = $pushKriteria;
             $data['toconvert_kriteria'] = $dataKriteria;
 
-            $data['ahp_kriteria'] = $_SESSION['ahp_kriteria'];
+            $data['ahp_kriteria'] = $ahpKriteria;
             ob_start();
             include_once $this->view('app/penilaianAhp/result', $data);
             $content = ob_get_clean();
@@ -216,7 +256,7 @@ class PenilaianAhp extends Controller
             $data['alternatif'] = $pushAlternatif;
             $data['toconvert_alternatif'] = $dataAlternatif;
 
-            $data['ahp_alternatif'] = $_SESSION['ahp_alternatif'][$dataGet['kriteria_id']];
+            $data['ahp_alternatif'] = $ahpAlternatif[$dataGet['kriteria_id']];
             ob_start();
             include_once $this->view('app/penilaianAhp/resultAhp', $data);
             $content = ob_get_clean();
@@ -226,8 +266,22 @@ class PenilaianAhp extends Controller
 
     public function lastResultAhp()
     {
-        $data['ahp_kriteria'] = $_SESSION['ahp_kriteria'];
-        $data['ahp_alternatif'] = $_SESSION['ahp_alternatif'];
+        $dataMatriksKriteria = json_decode($this->model('MatriksAhp_model')->getAhpKriteria(), true);
+        $dataMatriksAlternatif = $this->model('MatriksAlternatif_model')->getAhpAlternatif();
+        $dataAhpAlternatif = [];
+        foreach ($dataMatriksAlternatif as $key => $item) {
+            $getAhpAlternatif = json_decode($item['ahp_alternatif'], true);
+            foreach ($getAhpAlternatif as $alternatif_id => $itemValue) {
+                $dataAhpAlternatif[$alternatif_id] = $itemValue;
+            }
+        }
+
+        $ahpKriteria = $dataMatriksKriteria !== null ? $dataMatriksKriteria : (isset($_SESSION['ahp_kriteria']) ? $_SESSION['ahp_kriteria'] : []);
+
+        $ahpAlternatif = count($dataAhpAlternatif) > 0 ? $dataAhpAlternatif : (isset($_SESSION['ahp_alternatif']) ? $_SESSION['ahp_alternatif'] : []);
+
+        $data['ahp_kriteria'] = $ahpKriteria;
+        $data['ahp_alternatif'] = $ahpAlternatif;
         $data['kriteria'] = $this->model('Kriteria_model')->getAll();
         $pushKriteria = [];
         $save_hasil_akhir = [];
@@ -283,6 +337,8 @@ class PenilaianAhp extends Controller
         arsort($data['ranking']);
         $save_hasil_akhir['ranking'] = $data['ranking'];
         $_SESSION['hasil_akhir'] = $save_hasil_akhir;
+        $dataHasilAkhir = json_encode($save_hasil_akhir);
+        $this->model('HasilAkhir_model')->updateHasilAkhir($dataHasilAkhir);
 
         ob_start();
         include_once $this->view('app/penilaianAhp/lastResultAhp', $data);

@@ -17,8 +17,10 @@ class PerkembanganNilai extends Controller
             ['url' => BASEURL . '/Perkembangan Nilai', 'label' => 'Perkembangan Nilai'],
         ];
 
+        $dataHasilAkhir = $this->model('HasilAkhir_model')->getHasilAkhir();
+        $hasilAkhir = $dataHasilAkhir != null ? json_decode($dataHasilAkhir, true) : ($_SESSION['hasil_akhir'] ?? '');
         $data['breadcrumbs'] = $breadcrumbItems;
-        $data['hasil_akhir'] = $_SESSION['hasil_akhir'] ?? '';
+        $data['hasil_akhir'] = $hasilAkhir;
 
         ob_start();
         include_once $this->view('app/perkembanganNilai/index', $data);
@@ -36,7 +38,8 @@ class PerkembanganNilai extends Controller
 
     public function loadData()
     {
-        $data['hasil_akhir'] = $_SESSION['hasil_akhir'];
+        $dataHasilAkhir = $this->model('HasilAkhir_model')->getHasilAkhir();
+        $data['hasil_akhir'] = $dataHasilAkhir != null ? json_decode($dataHasilAkhir, true) : $_SESSION['hasil_akhir'];
         $data['alternatif'] = $this->model('Siswa_model')->getAll();
         $data['ranking'] = (array_values($data['hasil_akhir']['ranking']));
         $pushAlternatif = [];
