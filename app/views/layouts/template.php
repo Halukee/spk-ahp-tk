@@ -19,6 +19,7 @@ $settingApp = $utils->settingApp();
     <!-- Theme style -->
     <link rel="stylesheet" href="<?= BASEURL ?>/public/template/AdminLTE-3.2.0/dist/css/adminlte.min.css">
     <link rel="shortcut icon" href="<?= BASEURL ?>/uploads/pengaturan/<?= $settingApp['gambar_pengaturan'] ?>" type="image/x-icon">
+
     <style>
         label.error {
             color: #E72929;
@@ -60,7 +61,9 @@ $settingApp = $utils->settingApp();
     <script src="<?= BASEURL ?>/public/template/AdminLTE-3.2.0/dist/js/adminlte.min.js"></script>
     <script src="<?= BASEURL ?>/public/library/jquery-validation-1.19.5/dist/jquery.validate.js"></script>
     <script src="<?= BASEURL ?>/public/js/utils/index.js"></script>
+
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
     <?php
     if (isset($custom_js)) {
         echo $custom_js;

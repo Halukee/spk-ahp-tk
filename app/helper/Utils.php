@@ -265,4 +265,10 @@ class Utils extends Controller
         $formattedDate = $dateTime->format('d/m/Y H:i');
         return $formattedDate;
     }
+
+    public static function urlFormat($setUrl)
+    {
+        $url = explode('?', $setUrl);
+        return $url[0];
+    }
 }

@@ -19,6 +19,14 @@
         <div class="container-fluid">
             <div class="row">
                 <div class="col-lg-12">
+                    <ul class="nav nav-pills">
+                        <li class="nav-item">
+                            <a class="nav-link <?= Utils::urlFormat(Utils::urlNow()) == 'AbsensiSiswa' ? 'active' : '' ?>" href="<?= BASEURL ?>/AbsensiSiswa?siswa_id=<?= $data['siswa']['id'] ?>">Absensi Siswa</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link <?= Utils::urlFormat(Utils::urlNow()) == 'LaporanAbsensi' ? 'active' : '' ?>" href="<?= BASEURL ?>/LaporanAbsensi?siswa_id=<?= $data['siswa']['id'] ?>">Laporan Absensi</a>
+                        </li>
+                    </ul>
                     <div class="card">
                         <div class="card-header">
                             <div class="d-flex justify-content-between">

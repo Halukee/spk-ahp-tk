@@ -110,10 +110,6 @@
     <script src="<?= BASEURL ?>/public/library/sweetalert2/dist/sweetalert2.min.js"></script>
     <script src="<?= BASEURL ?>/public/library/select2-develop/dist/js/select2.min.js"></script>
     <script src="<?= BASEURL ?>/public/library/datatables/datatables.min.js"></script>
-
-
-
-
     <!-- AdminLTE dashboard demo (This is only for demo purposes) -->
 
     <script>

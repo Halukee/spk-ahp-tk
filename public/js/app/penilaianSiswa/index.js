@@ -4,7 +4,7 @@ var siswa_id = $('.siswa_id').data('value');
 var datatable;
 
 $(document).ready(function () {
-    function initDatatable() {
+    function initDatatable(mataPelajaranId = null) {
         datatable = basicDatatable({
             tableId: $("#dataTable"),
             ajaxUrl: `${baseurl}/PenilaianSiswa/dataTables?siswa_id=${siswa_id}`,
@@ -16,8 +16,8 @@ $(document).ready(function () {
                     className: "text-center",
                 },
                 {
-                    data: "matapelajaran_nilai",
-                    name: "matapelajaran_nilai",
+                    data: "nama_matapelajaran",
+                    name: "nama_matapelajaran",
                     searchable: true,
                 },
                 {
@@ -37,11 +37,17 @@ $(document).ready(function () {
                 },
             ],
             dataAjaxUrl: {
+                matapelajaran_id: mataPelajaranId
             },
         });
     }
     initDatatable();
 
+    select2Server({
+        selector: '.select2Server',
+        parent: '.content',
+        routing: `${baseurl}/MataPelajaran/select2`,
+    })
 
     body.on('click', '.btn-add', function (e) {
         e.preventDefault();
@@ -69,5 +75,11 @@ $(document).ready(function () {
         basicDeleteConfirmDatatable({
             urlDelete: $(this).attr('href'),
         })
+    })
+
+    body.on('change', 'select[name="nama_matapelajaran"]', function () {
+        const value = $(this).val();
+        $('#dataTable').DataTable().destroy();
+        initDatatable(value);
     })
 })

@@ -53,6 +53,14 @@ $settingApp = $utils->settingApp();
 
                 <li class="nav-header">DATA MASTER</li>
                 <li class="nav-item">
+                    <a href="<?= BASEURL ?>/MataPelajaran" class="nav-link <?= Utils::urlNow() == 'MataPelajaran' ? 'active' : '' ?>">
+                        <i class="nav-icon fa-solid fa-book"></i>
+                        <p>
+                            Mata Pelajaran
+                        </p>
+                    </a>
+                </li>
+                <li class="nav-item">
                     <a href="<?= BASEURL ?>/Kriteria" class="nav-link <?= Utils::urlNow() == 'Kriteria' ? 'active' : '' ?>">
                         <i class="nav-icon fa-solid fa-note-sticky"></i>
                         <p>

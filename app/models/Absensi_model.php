@@ -10,6 +10,12 @@ class Absensi_model extends Controller
     JOIN role_user on users.id = role_user.users_id
     JOIN roles on roles.id = role_user.roles_id';
 
+    private $stringLaporanDefault = 'SELECT absensi.*, profile.nama_profile, profile.alamat_profile, profile.jeniskelamin_profile, profile.nomorhp_profile, profile.kode_profile, roles.nama_roles, absensi.nama_absensi, COUNT(*) as jumlah_absensi FROM absensi
+    JOIN users on absensi.users_id = users.id
+    JOIN profile on profile.users_id = users.id
+    JOIN role_user on users.id = role_user.users_id
+    JOIN roles on roles.id = role_user.roles_id';
+
     private $countDefault = 'SELECT COUNT(*) as total FROM absensi
     JOIN users on absensi.users_id = users.id
     JOIN profile on profile.users_id = users.id
@@ -21,17 +27,40 @@ class Absensi_model extends Controller
         $this->db = new Database;
     }
 
-    public function getAll($siswa_id = null)
+    public function getAll($siswa_id = null, $dari_tanggal = null, $sampai_tanggal = null, $isLaporan = false)
     {
-        $queryText = $this->stringDefault . ' WHERE LOWER(roles.nama_roles) = :nama_roles';
+        // Memulai teks query
+        $queryDb = $isLaporan ? $this->stringLaporanDefault : $this->stringDefault;
+        $queryText =  $queryDb . ' WHERE LOWER(roles.nama_roles) = :nama_roles';
+
         if ($siswa_id != null) {
             $queryText .= ' AND users.id = :siswa_id';
         }
-        $this->db->query($queryText);
-        $this->db->bind('nama_roles', 'siswa');
-        if ($siswa_id != null) {
-            $this->db->bind('siswa_id', $siswa_id);
+        if ($dari_tanggal != null) {
+            $queryText .= ' AND DATE(absensi.tanggal_absensi) >= :dari_tanggal';
         }
+        if ($sampai_tanggal != null) {
+            $queryText .= ' AND DATE(absensi.tanggal_absensi) <= :sampai_tanggal';
+        }
+
+        if ($isLaporan) {
+            $queryText .= ' GROUP BY absensi.nama_absensi';
+        }
+
+        // Persiapkan dan eksekusi query
+        $this->db->query($queryText);
+        $this->db->bind(':nama_roles', 'siswa');
+
+        if ($siswa_id != null) {
+            $this->db->bind(':siswa_id', $siswa_id);
+        }
+        if ($dari_tanggal != null) {
+            $this->db->bind(':dari_tanggal', $dari_tanggal);
+        }
+        if ($sampai_tanggal != null) {
+            $this->db->bind(':sampai_tanggal', $sampai_tanggal);
+        }
+
         return $this->db->resultSet();
     }
 

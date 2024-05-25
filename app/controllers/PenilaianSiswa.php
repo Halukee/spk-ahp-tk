@@ -13,7 +13,12 @@ class PenilaianSiswa extends Controller
     {
         $dataGet = $_GET;
         $nilaiModel = $this->model('Nilai_model');
-        $dataAll = $nilaiModel->getAll($dataGet['siswa_id']);
+        $mataPelajaranId = $_GET['matapelajaran_id'];
+        if ($mataPelajaranId == 0) {
+            $mataPelajaranId = null;
+        }
+        $dataAll = $nilaiModel->getAll($dataGet['siswa_id'], $mataPelajaranId);
+
         $dataCount = count($dataAll);
         $data = array();
         foreach ($dataAll as $key => $value) {
@@ -30,7 +35,7 @@ class PenilaianSiswa extends Controller
                 ' . $buttonEdit . ' ' . $buttonDelete . '
             </div>';
             $data[] = [
-                'matapelajaran_nilai' => $value['matapelajaran_nilai'],
+                'nama_matapelajaran' => $value['nama_matapelajaran'],
                 'value_nilai' => $value['value_nilai'],
                 'keterangan_nilai' => $value['keterangan_nilai'],
                 'action' => $buttonAction,
@@ -82,10 +87,11 @@ class PenilaianSiswa extends Controller
     public function create()
     {
         $dataGet = $_GET;
-        $nilaiModel = $this->model('Nilai_model');
 
+        $mataPelajaran = $this->model('MataPelajaran_model')->getAll();
         $action = BASEURL . '/PenilaianSiswa/store?siswa_id=' . $dataGet['siswa_id'];
         $data['action'] = $action;
+        $data['mataPelajaran'] = $mataPelajaran;
 
         ob_start();
         include_once $this->view('app/penilaianSiswa/form', $data);
@@ -99,6 +105,8 @@ class PenilaianSiswa extends Controller
         $action = BASEURL . '/PenilaianSiswa/update/' . $id . '?siswa_id=' . $dataGet['siswa_id'];
         $nilaiModel = $this->model('Nilai_model');
 
+        $mataPelajaran = $this->model('MataPelajaran_model')->getAll();
+        $data['mataPelajaran'] = $mataPelajaran;
         $data['action'] = $action;
         $data['row'] = $nilaiModel->getById($id);
         ob_start();

@@ -179,7 +179,7 @@ function select2Server({
         dropdownParent: $(`${parent}`),
         closeOnSelect: true,
         placeholder: "-- Pilih Data --",
-        theme: "bootstrap-5",
+        theme: "bootstrap",
         ajax: {
             url: `${routing}`,
             dataType: "json",

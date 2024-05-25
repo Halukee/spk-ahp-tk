@@ -33,38 +33,49 @@
                             </div>
                         </div>
                         <div class="card-body">
-                            <table class="w-100">
-                                <tr>
-                                    <td>
-                                        <table class="w-100">
-                                            <tr>
-                                                <td class="w-25">Nama</td>
-                                                <td>:</td>
-                                                <td><?= $data['siswa']['nama_profile'] ?></td>
-                                            </tr>
-                                            <tr>
-                                                <td>No. HP</td>
-                                                <td>:</td>
-                                                <td><?= $data['siswa']['nomorhp_profile'] ?></td>
-                                            </tr>
-                                        </table>
-                                    </td>
-                                    <td>
-                                        <table class="w-100">
-                                            <tr>
-                                                <td class="w-25">Kode Profile</td>
-                                                <td>:</td>
-                                                <td><?= $data['siswa']['kode_profile'] ?></td>
-                                            </tr>
-                                            <tr>
-                                                <td>Jenis Kelamin</td>
-                                                <td>:</td>
-                                                <td><?= $data['siswa']['jeniskelamin_profile'] == 'L' ? 'Laki - laki' : 'Perempuan' ?></td>
-                                            </tr>
-                                        </table>
-                                    </td>
-                                </tr>
-                            </table>
+                            <div class="row">
+                                <div class="col-lg-9">
+                                    <table class="w-100">
+                                        <tr>
+                                            <td>
+                                                <table class="w-100">
+                                                    <tr>
+                                                        <td class="w-25">Nama</td>
+                                                        <td>:</td>
+                                                        <td><?= $data['siswa']['nama_profile'] ?></td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>No. HP</td>
+                                                        <td>:</td>
+                                                        <td><?= $data['siswa']['nomorhp_profile'] ?></td>
+                                                    </tr>
+                                                </table>
+                                            </td>
+                                            <td>
+                                                <table class="w-100">
+                                                    <tr>
+                                                        <td class="w-25">Kode Profile</td>
+                                                        <td>:</td>
+                                                        <td><?= $data['siswa']['kode_profile'] ?></td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>Jenis Kelamin</td>
+                                                        <td>:</td>
+                                                        <td><?= $data['siswa']['jeniskelamin_profile'] == 'L' ? 'Laki - laki' : 'Perempuan' ?></td>
+                                                    </tr>
+                                                </table>
+                                            </td>
+                                        </tr>
+                                    </table>
+                                </div>
+                                <div class="col-lg-3">
+                                    <div class="form-group">
+                                        <label for="">Mata Pelajaran</label>
+                                        <select name="nama_matapelajaran" class="form-control select2Server" id="">
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
                             <hr />
                             <div class="table-responsive">
                                 <table class="table table-bordered" id="dataTable">

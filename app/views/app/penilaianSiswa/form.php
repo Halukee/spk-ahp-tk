@@ -3,13 +3,22 @@
         <div class="form-group row">
             <label for="" class="col-lg-4">Mata Pelajaran</label>
             <div class="col-lg-8">
-                <input type="text" name="matapelajaran_nilai" placeholder="Mata Pelajaran..." class="form-control" value="<?= isset($data['row']) ? $data['row']['matapelajaran_nilai'] ?? '' : '' ?>">
+                <select name="matapelajaran_id" class="form-control select2" id="">
+                    <option value=""> -- Mata Pelajaran --</option>
+                    <?php
+                    $selectedMPelajaran = isset($data['row']) ? $data['row']['matapelajaran_id'] ?? '' : '';
+                    foreach ($data['mataPelajaran'] as $key => $item) { ?>
+                        <option value="<?= $item['id']  ?>" <?= $selectedMPelajaran == $item['id'] ? 'selected' : '' ?>><?= $item['nama_matapelajaran'] ?></option>
+                    <?php
+                    }
+                    ?>
+                </select>
             </div>
         </div>
         <div class="form-group row">
             <label for="" class="col-lg-4">Nilai</label>
             <div class="col-lg-8">
-                <input type="text" name="value_nilai" placeholder="Nilai..." class="form-control" value="<?= isset($data['row']) ? $data['row']['value_nilai'] ?? '' : '' ?>">
+                <input type="number" name="value_nilai" placeholder="Nilai..." class="form-control" value="<?= isset($data['row']) ? $data['row']['value_nilai'] ?? '' : '' ?>">
             </div>
         </div>
         <div class="form-group row">

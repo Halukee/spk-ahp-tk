@@ -2,25 +2,30 @@ var body = $('body');
 var formSubmit = document.getElementById("form-submit");
 var validate = $("#form-submit").validate({
     rules: {
-        matapelajaran_nilai: "required",
+        matapelajaran_id: "required",
         value_nilai: "required",
     },
     messages: {
-        matapelajaran_nilai: "Masukan mata pelajaran",
+        matapelajaran_id: "Masukan mata pelajaran",
         value_nilai: "Masukan nilai",
     }
 });
 
-$(document).ready(function(){
-formSubmit.addEventListener("submit", function (event) {
-    event.preventDefault();
-    submitData();
-});
+select2Standard({
+    selector: '.select2',
+    parent: '#modalLg',
+})
 
-function submitData() {
-        if(validate.valid()){
+$(document).ready(function () {
+    formSubmit.addEventListener("submit", function (event) {
+        event.preventDefault();
+        submitData();
+    });
+
+    function submitData() {
+        if (validate.valid()) {
             const formData = $("#form-submit").serialize();
-            
+
             $.ajax({
                 type: "post",
                 url: $("#form-submit").attr("action"),
