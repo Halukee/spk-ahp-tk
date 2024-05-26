@@ -1,41 +1,47 @@
 var body = $('body');
 var baseurl = $('.baseurl').data('value');
 var siswa_id = $('.siswa_id').data('value');
+var nama_roles = $('.nama_roles').data('value');
 var datatable;
 
 $(document).ready(function () {
+    const allowColumn = [
+        {
+            data: null,
+            orderable: false,
+            searchable: false,
+            className: "text-center",
+        },
+        {
+            data: "nama_matapelajaran",
+            name: "nama_matapelajaran",
+            searchable: true,
+        },
+        {
+            data: "value_nilai",
+            name: "value_nilai",
+            searchable: true,
+        },
+        {
+            data: "keterangan_nilai",
+            name: "keterangan_nilai",
+            searchable: true,
+        }
+    ];
+
+    if (nama_roles != 'Wali Murid') {
+        allowColumn.push({
+            data: "action",
+            name: "action",
+            searchable: true,
+        });
+    }
+
     function initDatatable(mataPelajaranId = null) {
         datatable = basicDatatable({
             tableId: $("#dataTable"),
             ajaxUrl: `${baseurl}/PenilaianSiswa/dataTables?siswa_id=${siswa_id}`,
-            columns: [
-                {
-                    data: null,
-                    orderable: false,
-                    searchable: false,
-                    className: "text-center",
-                },
-                {
-                    data: "nama_matapelajaran",
-                    name: "nama_matapelajaran",
-                    searchable: true,
-                },
-                {
-                    data: "value_nilai",
-                    name: "value_nilai",
-                    searchable: true,
-                },
-                {
-                    data: "keterangan_nilai",
-                    name: "keterangan_nilai",
-                    searchable: true,
-                },
-                {
-                    data: "action",
-                    name: "action",
-                    searchable: true,
-                },
-            ],
+            columns: allowColumn,
             dataAjaxUrl: {
                 matapelajaran_id: mataPelajaranId
             },

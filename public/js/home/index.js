@@ -12,8 +12,8 @@ var validate = $("#form-submit").validate({
 var body = $('body');
 var baseurl = $('.baseurl').data('value');
 
-$(document).ready(function(){
-    body.on('click', '#btn-submit', function(e){
+$(document).ready(function () {
+    body.on('click', '#btn-submit', function (e) {
         e.preventDefault();
         var formData = $("#form-submit").serialize();
         $.ajax({
@@ -26,14 +26,19 @@ $(document).ready(function(){
                 $("#btn-submit").html(disableButton);
             },
             success: function (data) {
+                const result = data.result;
                 Swal.fire({
                     title: data.title,
                     text: data.message,
                     icon: data.status ? 'success' : 'error',
                     confirmButtonText: "OK",
-                }).then(function(){
-                    if(data.status){
-                        window.location.href = `${baseurl}/Dashboard`;
+                }).then(function () {
+                    if (data.status) {
+                        if (result.nama_roles != 'Wali Murid') {
+                            window.location.href = `${baseurl}/Dashboard`;
+                        } else {
+                            window.location.href = `${baseurl}/PenilaianAhp`;
+                        }
                     }
                 });
             },

@@ -40,11 +40,13 @@ class Login extends Controller
                     $users->setRememberToken($login['id'], $remember_token, $token_expiration);
                     setcookie('remember_token', $remember_token, time() + $token_expiration, "/", null, null, true);
                 }
+                $utils = new Utils();
 
                 echo json_encode([
                     'status' => true,
                     'title' => 'Successfully',
                     'message' => 'Berhasil login',
+                    'result' => $utils->myProfile(),
                 ]);
             } else {
                 echo json_encode([

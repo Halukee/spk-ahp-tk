@@ -65,8 +65,13 @@ class PenilaianSiswa extends Controller
             ['url' => BASEURL . '/PenilaianSiswa?siswa_id=' . $dataGet['siswa_id'], 'label' => 'Penilaian Siswa'],
         ];
 
+        $utils = new Utils();
+        $myProfile = $utils->myProfile();
+
         $data['breadcrumbs'] = $breadcrumbItems;
         $data['siswa'] = $this->model('Siswa_model')->getById($dataGet['siswa_id']);
+        $data['nama_roles'] = $myProfile['nama_roles'];
+        
         ob_start();
         include_once $this->view('app/penilaianSiswa/index', $data);
         $content = ob_get_clean();
@@ -77,6 +82,7 @@ class PenilaianSiswa extends Controller
         $template->assign('custom_js', '
         <script class="baseurl" data-value="' . BASEURL . '"></script>
         <script class="siswa_id" data-value="' . $dataGet['siswa_id'] . '"></script>
+        <script class="nama_roles" data-value="' . $myProfile['nama_roles'] . '"></script>
         <script src="' . BASEURL . '/public/js/app/penilaianSiswa/index.js"></script>
         ');
 

@@ -11,7 +11,7 @@
  Target Server Version : 100428 (10.4.28-MariaDB)
  File Encoding         : 65001
 
- Date: 20/05/2024 23:23:33
+ Date: 26/05/2024 10:50:35
 */
 
 SET NAMES utf8mb4;
@@ -30,15 +30,22 @@ CREATE TABLE `absensi`  (
   PRIMARY KEY (`id`) USING BTREE,
   INDEX `users_id`(`users_id` ASC) USING BTREE,
   CONSTRAINT `absensi_ibfk_1` FOREIGN KEY (`users_id`) REFERENCES `users` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE = InnoDB AUTO_INCREMENT = 7 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 14 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of absensi
 -- ----------------------------
-INSERT INTO `absensi` VALUES (3, 'sakit', 'Sakit Gigi', 7, '2024-05-05 11:42:00');
-INSERT INTO `absensi` VALUES (4, 'izin', 'Izin menikah', 7, '2024-05-05 11:42:00');
-INSERT INTO `absensi` VALUES (5, 'perjalanan dinas', 'Perjalanan membawamu', 7, '2024-05-05 18:00:00');
+INSERT INTO `absensi` VALUES (3, 'sakit', 'Sakit Gigi', 7, '2024-05-25 11:42:00');
+INSERT INTO `absensi` VALUES (4, 'izin', 'Izin menikah', 7, '2024-05-25 11:42:00');
+INSERT INTO `absensi` VALUES (5, 'perjalanan dinas', 'Perjalanan membawamu', 7, '2024-05-25 18:00:00');
 INSERT INTO `absensi` VALUES (6, 'keperluan agama', 'Mau taubat', 7, '2024-05-28 23:00:00');
+INSERT INTO `absensi` VALUES (7, 'sakit', 'Keterangan izin sakit bos ku', 7, '2024-05-25 11:45:00');
+INSERT INTO `absensi` VALUES (8, 'izin', 'Izin untuk holiday bosku', 7, '2024-05-25 11:46:00');
+INSERT INTO `absensi` VALUES (9, 'libur resmi', 'Keterangan untuk libur resmi bosku', 7, '2024-05-25 11:46:00');
+INSERT INTO `absensi` VALUES (10, 'libur resmi', 'Keterangan libur resmi', 7, '2024-05-25 11:46:00');
+INSERT INTO `absensi` VALUES (11, 'tanpa keterangan', 'Keterangan tanpa keterangan 1x', 7, '2024-05-25 11:47:00');
+INSERT INTO `absensi` VALUES (12, 'tanpa keterangan', 'Keterangan tanpa keterangan 2x', 7, '2024-05-25 11:47:00');
+INSERT INTO `absensi` VALUES (13, 'tanpa keterangan', 'Keterangan tanpa keterangan 3x', 7, '2024-05-25 11:47:00');
 
 -- ----------------------------
 -- Table structure for hasil_akhir
@@ -76,6 +83,25 @@ INSERT INTO `kriteria` VALUES (8, 'Kriteria 3', 'K003', 'Keterangan kriteria 3')
 INSERT INTO `kriteria` VALUES (12, 'Kriteria 4', 'K004', 'Keterangan kriteria 4');
 INSERT INTO `kriteria` VALUES (13, 'Kriteria 5', 'K005', 'Keterangan kriteria 5');
 INSERT INTO `kriteria` VALUES (14, 'Kriteria 6', 'K006', 'Keterangan kriteria 6');
+
+-- ----------------------------
+-- Table structure for matapelajaran
+-- ----------------------------
+DROP TABLE IF EXISTS `matapelajaran`;
+CREATE TABLE `matapelajaran`  (
+  `id` int NOT NULL AUTO_INCREMENT,
+  `nama_matapelajaran` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL,
+  PRIMARY KEY (`id`) USING BTREE
+) ENGINE = InnoDB AUTO_INCREMENT = 7 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = Dynamic;
+
+-- ----------------------------
+-- Records of matapelajaran
+-- ----------------------------
+INSERT INTO `matapelajaran` VALUES (2, 'Bahasa Indonesia');
+INSERT INTO `matapelajaran` VALUES (3, 'Bahasa Inggris');
+INSERT INTO `matapelajaran` VALUES (4, 'Matematika');
+INSERT INTO `matapelajaran` VALUES (5, 'IPA');
+INSERT INTO `matapelajaran` VALUES (6, 'IPS');
 
 -- ----------------------------
 -- Table structure for matriks_alternatif
@@ -124,18 +150,27 @@ CREATE TABLE `nilai`  (
   `value_nilai` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
   `keterangan_nilai` text CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL,
   `users_id` int NOT NULL,
-  `matapelajaran_nilai` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL,
+  `matapelajaran_id` int NULL DEFAULT NULL,
   PRIMARY KEY (`id`) USING BTREE,
   INDEX `users_id`(`users_id` ASC) USING BTREE,
-  CONSTRAINT `nilai_ibfk_1` FOREIGN KEY (`users_id`) REFERENCES `users` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE = InnoDB AUTO_INCREMENT = 6 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = Dynamic;
+  INDEX `matapelajaran_id`(`matapelajaran_id` ASC) USING BTREE,
+  CONSTRAINT `nilai_ibfk_1` FOREIGN KEY (`users_id`) REFERENCES `users` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  CONSTRAINT `nilai_ibfk_2` FOREIGN KEY (`matapelajaran_id`) REFERENCES `matapelajaran` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
+) ENGINE = InnoDB AUTO_INCREMENT = 16 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of nilai
 -- ----------------------------
-INSERT INTO `nilai` VALUES (1, '89.89', 'Keterangan nilai ini perfect', 7, 'Bahasa Indonesia');
-INSERT INTO `nilai` VALUES (2, '85.85', 'Sudah bagus nilainya', 7, 'Matematika');
-INSERT INTO `nilai` VALUES (3, '80.53', 'Keterangan sudah sip sih', 7, 'Bahasa Indonesia');
+INSERT INTO `nilai` VALUES (6, '85.34', 'Keterangan bahasa indonesia', 7, 2);
+INSERT INTO `nilai` VALUES (7, '80', 'Keterangan ga da obat', 7, 3);
+INSERT INTO `nilai` VALUES (8, '80.53', 'Keterangan mata peelajaran ipa\r\n', 7, 5);
+INSERT INTO `nilai` VALUES (9, '75.5', 'Keterangan ips\r\n', 7, 6);
+INSERT INTO `nilai` VALUES (10, '95.23', 'Keterangan pelajaran matematika', 7, 4);
+INSERT INTO `nilai` VALUES (11, '86.45', 'Keterangan IPS', 7, 6);
+INSERT INTO `nilai` VALUES (12, '88.54', 'Keterangan IPA', 7, 5);
+INSERT INTO `nilai` VALUES (13, '90.54', 'Keterngan IPA', 7, 5);
+INSERT INTO `nilai` VALUES (14, '99.54', 'Keterangan bahasa indonesia\r\n', 7, 2);
+INSERT INTO `nilai` VALUES (15, '98.4', 'Keterangan bahasa inggris', 7, 3);
 
 -- ----------------------------
 -- Table structure for pengaturan
@@ -171,7 +206,7 @@ CREATE TABLE `profile`  (
   PRIMARY KEY (`id`) USING BTREE,
   INDEX `users_id`(`users_id` ASC) USING BTREE,
   CONSTRAINT `profile_ibfk_1` FOREIGN KEY (`users_id`) REFERENCES `users` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE = InnoDB AUTO_INCREMENT = 21 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 22 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of profile
@@ -189,6 +224,7 @@ INSERT INTO `profile` VALUES (16, 'admin124', 'alamat admin124', 'L', '892372389
 INSERT INTO `profile` VALUES (18, 'Siswadaftar123', 'alamat siswa daftar 123', 'L', '039287329827', 25, 'A005');
 INSERT INTO `profile` VALUES (19, 'siswa124', 'alamat siswa124', 'L', '0948678', 26, 'A006');
 INSERT INTO `profile` VALUES (20, 'Siswa125', 'alamat siswa125', 'L', '2389723897', 27, 'A007');
+INSERT INTO `profile` VALUES (21, 'Admin 124', 'ALAMAT admin 124', 'L', '098572398732', 28, 'A008');
 
 -- ----------------------------
 -- Table structure for role_user
@@ -203,7 +239,7 @@ CREATE TABLE `role_user`  (
   INDEX `roles_id`(`roles_id` ASC) USING BTREE,
   CONSTRAINT `role_user_ibfk_1` FOREIGN KEY (`users_id`) REFERENCES `users` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
   CONSTRAINT `role_user_ibfk_2` FOREIGN KEY (`roles_id`) REFERENCES `roles` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE = InnoDB AUTO_INCREMENT = 21 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 22 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of role_user
@@ -223,6 +259,7 @@ INSERT INTO `role_user` VALUES (16, 23, 1);
 INSERT INTO `role_user` VALUES (18, 25, 3);
 INSERT INTO `role_user` VALUES (19, 26, 3);
 INSERT INTO `role_user` VALUES (20, 27, 3);
+INSERT INTO `role_user` VALUES (21, 28, 3);
 
 -- ----------------------------
 -- Table structure for roles
@@ -273,15 +310,15 @@ CREATE TABLE `users`  (
   `email_users` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
   `token_expiration` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL,
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 28 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 29 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of users
 -- ----------------------------
-INSERT INTO `users` VALUES (4, 'guru123', '5f4dcc3b5aa765d61d8327deb882cf99', NULL, 'guru123@gmail.com', NULL);
-INSERT INTO `users` VALUES (5, 'walimurid123', '5f4dcc3b5aa765d61d8327deb882cf99', NULL, 'walimurid123@gmail.com', NULL);
+INSERT INTO `users` VALUES (4, 'guru123', '9310f83135f238b04af729fec041cca8', NULL, 'guru123@gmail.com', NULL);
+INSERT INTO `users` VALUES (5, 'walimurid123', 'bf08271815f553100de1092e319662a0', NULL, 'walimurid123@gmail.com', NULL);
 INSERT INTO `users` VALUES (6, 'admin123', '0192023a7bbd73250516f069df18b500', '912d5f255277454f0b5e94284f4c2dbd', 'admin123@gmail.com', '1714755421');
-INSERT INTO `users` VALUES (7, 'siswa123', '5f4dcc3b5aa765d61d8327deb882cf99', NULL, 'siswa123@gmail.com', NULL);
+INSERT INTO `users` VALUES (7, 'siswa123', '3afa0d81296a4f17d477ec823261b1ec', NULL, 'siswa123@gmail.com', NULL);
 INSERT INTO `users` VALUES (8, 'siswa124', '5f4dcc3b5aa765d61d8327deb882cf99', NULL, 'siswa124@gmail.com', NULL);
 INSERT INTO `users` VALUES (9, 'siswa125', '5f4dcc3b5aa765d61d8327deb882cf99', NULL, 'siswa125@gmail.com', NULL);
 INSERT INTO `users` VALUES (10, 'siswa126', '5f4dcc3b5aa765d61d8327deb882cf99', NULL, 'siswa126@gmail.com', NULL);
@@ -294,5 +331,6 @@ INSERT INTO `users` VALUES (23, 'admin124', 'd325ffe191a600f562fb59ae52ccbc75', 
 INSERT INTO `users` VALUES (25, 'siswadaftar123', '5f4dcc3b5aa765d61d8327deb882cf99', NULL, 'siswadaftar123@gmail.com', NULL);
 INSERT INTO `users` VALUES (26, 'siswa124', '5f4dcc3b5aa765d61d8327deb882cf99', NULL, 'siswa124@gmail.com', NULL);
 INSERT INTO `users` VALUES (27, 'siswa125', '5f4dcc3b5aa765d61d8327deb882cf99', NULL, 'siswa125@gmail.com', NULL);
+INSERT INTO `users` VALUES (28, 'admin124', '5f4dcc3b5aa765d61d8327deb882cf99', NULL, 'admin124@gmail.com', NULL);
 
 SET FOREIGN_KEY_CHECKS = 1;

@@ -2,13 +2,16 @@
 
 class App
 {
-    protected $controller = 'Home';
+    protected $controller = 'Page404';
     protected $method = 'index';
     protected $params = [];
 
     public function __construct()
     {
         $url = $this->parseURL();
+        if ($url[0] == '') {
+            $this->controller = 'Home';
+        }
 
         // controller
         if (!empty($url[0]) && file_exists('./app/controllers/' . $url[0] . '.php')) {

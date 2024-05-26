@@ -6,6 +6,13 @@ class Profile extends Controller
     {
         $utils = new Utils();
         $utils->notLogin();
+        $allowMyProfile = ['Admin', 'Guru'];
+        $utils = new Utils();
+        $myProfile = $utils->myProfile();
+        if (!in_array($myProfile['nama_roles'], $allowMyProfile)) {
+            header("Location: ".BASEURL.'/Page403');
+            exit;
+        }
     }
 
 

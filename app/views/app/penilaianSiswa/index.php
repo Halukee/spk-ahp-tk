@@ -25,11 +25,17 @@
                                 <div>
                                     <i class="fa-solid fa-note-sticky"></i>Penilaian Siswa
                                 </div>
-                                <div>
-                                    <button type="button" class="btn btn-primary btn-add" data-url="<?= BASEURL ?>/PenilaianSiswa/create?siswa_id=<?= $data['siswa']['id'] ?>">
-                                        <i class="fa-solid fa-plus"></i> Tambah Data
-                                    </button>
-                                </div>
+                                <?php
+                                if ($data['nama_roles'] != 'Wali Murid') { ?>
+                                    <div>
+                                        <button type="button" class="btn btn-primary btn-add" data-url="<?= BASEURL ?>/PenilaianSiswa/create?siswa_id=<?= $data['siswa']['id'] ?>">
+                                            <i class="fa-solid fa-plus"></i> Tambah Data
+                                        </button>
+                                    </div>
+                                <?php
+                                }
+                                ?>
+
                             </div>
                         </div>
                         <div class="card-body">
@@ -85,7 +91,12 @@
                                             <th>Mata Pelajaran</th>
                                             <th>Nilai</th>
                                             <th>Keterangan</th>
-                                            <th>Action</th>
+                                            <?php
+                                            if ($data['nama_roles'] != 'Wali Murid') { ?>
+                                                <th>Action</th>
+                                            <?php
+                                            }
+                                            ?>
                                         </tr>
                                     </thead>
                                     <tbody></tbody>
