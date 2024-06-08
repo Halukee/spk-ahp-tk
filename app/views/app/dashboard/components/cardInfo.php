@@ -15,67 +15,80 @@
           </div>
       </div>
       <!-- ./col -->
-      <div class="col-lg-3 col-6">
-          <!-- small box -->
-          <div class="small-box bg-success">
-              <div class="inner">
-                  <h3><?= $data['guru'] ?></h3>
-                  <p>Guru</p>
+      <?php
+        if ($data['namaRoles'] != 'Orang Tua') { ?>
+          <div class="col-lg-3 col-6">
+              <!-- small box -->
+              <div class="small-box bg-success">
+                  <div class="inner">
+                      <h3><?= $data['guru'] ?></h3>
+                      <p>Guru</p>
+                  </div>
+                  <div class="icon">
+                      <i class="fa-solid fa-chalkboard-user fa"></i>
+                  </div>
+                  <a href="<?= BASEURL ?>/Guru" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
               </div>
-              <div class="icon">
-                  <i class="fa-solid fa-chalkboard-user fa"></i>
-              </div>
-              <a href="<?= BASEURL ?>/Guru" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
           </div>
-      </div>
+      <?php
+        }
+        ?>
+
+      <?php
+        if ($data['namaRoles'] != 'Orang Tua') { ?>
+          <!-- ./col -->
+          <div class="col-lg-3 col-6">
+              <!-- small box -->
+              <div class="small-box bg-warning">
+                  <div class="inner">
+                      <h3><?= $data['admin'] ?></h3>
+
+                      <p>Admin</p>
+                  </div>
+                  <div class="icon">
+                      <i class="fa-solid fa-user-lock fa"></i>
+                  </div>
+                  <a href="<?= BASEURL ?>/Admin" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
+              </div>
+          </div>
+      <?php } ?>
       <!-- ./col -->
-      <div class="col-lg-3 col-6">
-          <!-- small box -->
-          <div class="small-box bg-warning">
-              <div class="inner">
-                  <h3><?= $data['admin'] ?></h3>
+      <?php
+        if ($data['namaRoles'] != 'Orang Tua') { ?>
+          <div class="col-lg-3 col-6">
+              <!-- small box -->
 
-                  <p>Admin</p>
+
+              <div class="small-box bg-secondary">
+                  <div class="inner">
+                      <h3><?= $data['waliMurid'] ?></h3>
+                      <p>Wali Siswa</p>
+                  </div>
+                  <div class="icon">
+                      <i class="fa-solid fa-person-chalkboard fa"></i>
+                  </div>
+                  <a href="<?= BASEURL ?>/Siswa" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
               </div>
-              <div class="icon">
-                  <i class="fa-solid fa-user-lock fa"></i>
-              </div>
-              <a href="<?= BASEURL ?>/Admin" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
           </div>
-      </div>
-      <!-- ./col -->
-      <div class="col-lg-3 col-6">
-          <!-- small box -->
+          <!-- ./col -->
+      <?php } ?>
 
-
-          <div class="small-box bg-secondary">
-              <div class="inner">
-                  <h3><?= $data['waliMurid'] ?></h3>
-                  <p>Wali Siswa</p>
+      <?php
+        if ($data['namaRoles'] != 'Orang Tua') { ?>
+          <div class="col-lg-3 col-6">
+              <!-- small box -->
+              <div class="small-box bg-danger">
+                  <div class="inner">
+                      <h3><?= $data['kriteria'] ?></h3>
+                      <p>Kriteria</p>
+                  </div>
+                  <div class="icon">
+                      <i class="fa-solid fa-layer-group fa"></i>
+                  </div>
+                  <a href="<?= BASEURL ?>/Kriteria" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
               </div>
-              <div class="icon">
-                  <i class="fa-solid fa-person-chalkboard fa"></i>
-              </div>
-              <a href="<?= BASEURL ?>/Siswa" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
           </div>
-      </div>
-      <!-- ./col -->
-  </div>
-
-  <div class="row">
-      <div class="col-lg-3 col-6">
-          <!-- small box -->
-          <div class="small-box bg-danger">
-              <div class="inner">
-                  <h3><?= $data['kriteria'] ?></h3>
-                  <p>Kriteria</p>
-              </div>
-              <div class="icon">
-                  <i class="fa-solid fa-layer-group fa"></i>
-              </div>
-              <a href="<?= BASEURL ?>/Kriteria" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
-          </div>
-      </div>
+      <?php } ?>
       <!-- ./col -->
       <div class="col-lg-3 col-6">
           <!-- small box -->
@@ -102,7 +115,7 @@
               <div class="icon">
                   <i class="fa-solid fa-chart-simple fa"></i>
               </div>
-              <a href="<?= BASEURL ?>/Admin" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
+              <a href="<?= BASEURL ?>/PerkembanganNilai" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
           </div>
       </div>
       <!-- ./col -->

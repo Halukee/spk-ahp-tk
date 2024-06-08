@@ -27,7 +27,7 @@ $settingApp = $utils->settingApp();
             <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
                 <li class="nav-header">MENU</li>
                 <?php
-                $allowData = ['Admin', 'Guru'];
+                $allowData = ['Admin', 'Guru', 'Orang Tua'];
                 if (in_array($myProfile['nama_roles'], $allowData)) { ?>
                     <li class="nav-item">
                         <a href="<?= BASEURL ?>/Dashboard" class="nav-link <?= Utils::urlNow() == 'Dashboard' ? 'active' : '' ?>">
@@ -55,16 +55,24 @@ $settingApp = $utils->settingApp();
                 <?php } ?>
 
 
-                <li class="nav-item">
-                    <a href="<?= BASEURL ?>/PenilaianAhp" class="nav-link <?= Utils::urlNow() == 'PenilaianAhp' ? 'active' : '' ?>">
-                        <i class="nav-icon fa-solid fa-note-sticky"></i>
-                        <p>
-                            Penilaian AHP
-                        </p>
-                    </a>
-                </li>
+                <?php
+                $allowData = ['Orang Tua'];
+                if (!in_array($myProfile['nama_roles'], $allowData)) { ?>
+                    <li class="nav-item">
+                        <a href="<?= BASEURL ?>/PenilaianAhp" class="nav-link <?= Utils::urlNow() == 'PenilaianAhp' ? 'active' : '' ?>">
+                            <i class="nav-icon fa-solid fa-note-sticky"></i>
+                            <p>
+                                Penilaian AHP
+                            </p>
+                        </a>
+                    </li>
+                <?php } ?>
 
-                <li class="nav-header">DATA MASTER</li>
+                <?php
+                $allowData = ['Orang Tua'];
+                if (!in_array($myProfile['nama_roles'], $allowData)) { ?>
+                    <li class="nav-header">DATA MASTER</li>
+                <?php } ?>
                 <?php
                 $allowData = ['Guru', 'Wali Murid'];
                 if (in_array($myProfile['nama_roles'], $allowData)) { ?>
@@ -108,6 +116,7 @@ $settingApp = $utils->settingApp();
                 $activeClassGuru = $urlNow == 'Guru' ? 'active' : '';
                 $activeClassWaliMurid = $urlNow == 'waliMurid' ? 'active' : '';
                 $activeClassAdmin = $urlNow == 'Admin' ? 'active' : '';
+                $activeClassOrangTua = $urlNow == 'OrangTua' ? 'active' : '';
                 ?>
 
                 <?php
@@ -170,7 +179,16 @@ $settingApp = $utils->settingApp();
                                 </li>
                             <?php } ?>
 
-
+                            <?php
+                            $allowData = ['Guru', 'Wali Murid'];
+                            if (in_array($myProfile['nama_roles'], $allowData)) { ?>
+                                <li class="nav-item">
+                                    <a href="<?= BASEURL ?>/OrangTua" class="nav-link <?= $activeClassOrangTua ?>">
+                                        <i class="far fa-circle nav-icon"></i>
+                                        <p>Data Orang Tua</p>
+                                    </a>
+                                </li>
+                            <?php } ?>
                         </ul>
                     </li>
                 <?php  } ?>
@@ -182,7 +200,7 @@ $settingApp = $utils->settingApp();
                 <?php } ?>
 
                 <?php
-                $allowData = ['Guru', 'Wali Murid'];
+                $allowData = ['Guru', 'Wali Murid', 'Orang Tua'];
                 if (in_array($myProfile['nama_roles'], $allowData)) { ?>
                     <li class="nav-item">
                         <a href="<?= BASEURL ?>/Nilai" class="nav-link <?= Utils::urlNow() == 'Nilai' ? 'active' : '' ?>">
@@ -195,7 +213,7 @@ $settingApp = $utils->settingApp();
                 <?php } ?>
 
                 <?php
-                $allowData = ['Guru', 'Wali Murid'];
+                $allowData = ['Guru', 'Wali Murid', 'Orang Tua'];
                 if (in_array($myProfile['nama_roles'], $allowData)) { ?>
                     <li class="nav-item">
                         <a href="<?= BASEURL ?>/Absensi" class="nav-link <?= Utils::urlNow() == 'Absensi' ? 'active' : '' ?>">
@@ -208,7 +226,7 @@ $settingApp = $utils->settingApp();
                 <?php  } ?>
 
                 <?php
-                $allowData = ['Guru', 'Wali Murid'];
+                $allowData = ['Guru', 'Wali Murid', 'Orang Tua'];
                 if (in_array($myProfile['nama_roles'], $allowData)) { ?>
                     <li class="nav-item">
                         <a href="<?= BASEURL ?>/PerkembanganNilai" class="nav-link <?= Utils::urlNow() == 'PerkembanganNilai' ? 'active' : '' ?>">
