@@ -64,9 +64,16 @@ class Absensi_model extends Controller
         return $this->db->resultSet();
     }
 
-    public function countAll()
+    public function countAll($users_id = null)
     {
-        $this->db->query($this->countDefault . ' WHERE LOWER(roles.nama_roles) = :nama_roles');
+        $query = $this->countDefault . ' WHERE LOWER(roles.nama_roles) = :nama_roles';
+        if ($users_id != null) {
+            $query .= ' AND absensi.users_id = :users_id';
+        }
+        $this->db->query($query);
+        if ($users_id != null) {
+            $this->db->bind('users_id', $users_id);
+        }
         $this->db->bind('nama_roles', 'siswa');
         return $this->db->single();
     }

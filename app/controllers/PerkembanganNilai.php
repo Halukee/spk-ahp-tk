@@ -7,7 +7,7 @@ class PerkembanganNilai extends Controller
         $utils = new Utils();
         $utils->notLogin();
 
-        $allowMyProfile = ['Guru', 'Wali Murid'];
+        $allowMyProfile = ['Guru', 'Wali Murid','Orang Tua'];
         $utils = new Utils();
         $myProfile = $utils->myProfile();
         if (!in_array($myProfile['nama_roles'], $allowMyProfile)) {
@@ -18,6 +18,10 @@ class PerkembanganNilai extends Controller
 
     public function index()
     {
+        $utils = new Utils();
+        $myProfile = $utils->myProfile();
+        $namaRoles = $myProfile['nama_roles'];
+
         $template = new Template();
         // breadcrumbs
         $breadcrumbItems = [
@@ -29,6 +33,7 @@ class PerkembanganNilai extends Controller
         $hasilAkhir = $dataHasilAkhir != null ? json_decode($dataHasilAkhir, true) : ($_SESSION['hasil_akhir'] ?? '');
         $data['breadcrumbs'] = $breadcrumbItems;
         $data['hasil_akhir'] = $hasilAkhir;
+        $data['namaRoles'] = $namaRoles;
 
         ob_start();
         include_once $this->view('app/perkembanganNilai/index', $data);

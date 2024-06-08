@@ -9,6 +9,14 @@ class PenilaianAhp extends Controller
         $utils->notLogin();
         require_once './app/config/datastatis.php';
         $this->datastatis = $data['statis'];
+
+        $allowMyProfile = ['Orang Tua'];
+        $utils = new Utils();
+        $myProfile = $utils->myProfile();
+        if (in_array($myProfile['nama_roles'], $allowMyProfile)) {
+            header("Location: " . BASEURL . '/Page403');
+            exit;
+        }
     }
 
     public function index()
@@ -27,13 +35,13 @@ class PenilaianAhp extends Controller
         $data['kriteria'] = $this->model('Kriteria_model')->getAll();
         foreach ($data['kriteria'] as $key1 => $item1) {
             foreach ($data['kriteria'] as $key2 => $item2) {
-               
+
                 $nilai = null;
                 $kriteria_id1 = $item1['id'];
                 $kriteria_id2 = $item2['id'];
 
                 $dataMatriksKriteria = json_decode($this->model('MatriksAhp_model')->getAhpKriteria(), true);
-                if($dataMatriksKriteria != null){
+                if ($dataMatriksKriteria != null) {
                     $dataSelected = $dataMatriksKriteria['matriks_perbandingan_original'][$kriteria_id1][$kriteria_id2] ?? '';
                 } else {
                     $dataSelected = $_SESSION['ahp_kriteria']['matriks_perbandingan_original'][$kriteria_id1][$kriteria_id2] ?? '';
@@ -197,15 +205,15 @@ class PenilaianAhp extends Controller
         $output = Utils::perhitunganAHP($data, $this->datastatis);
         $dataOutput = json_encode($output);
         if ($data['is_kriteria']) {
-            $this->model('MatriksAhp_model')->updateMatriksKriteria($dataOutput);    
+            $this->model('MatriksAhp_model')->updateMatriksKriteria($dataOutput);
             $_SESSION['ahp_kriteria'] = $output;
         } else {
             $kriteria_id = $data['kriteria_id'];
             $setOutput[$data['kriteria_id']] = $output;
             $setOutput = json_encode($setOutput);
-            $this->model('MatriksAlternatif_model')->updateMatriksAlternatif($kriteria_id, $setOutput); 
+            $this->model('MatriksAlternatif_model')->updateMatriksAlternatif($kriteria_id, $setOutput);
 
-            $_SESSION['ahp_alternatif'][$data['kriteria_id']] = $output;   
+            $_SESSION['ahp_alternatif'][$data['kriteria_id']] = $output;
         }
         echo json_encode($data);
     }

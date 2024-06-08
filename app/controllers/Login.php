@@ -30,6 +30,7 @@ class Login extends Controller
         $login = $users->login($data);
         if ($login) {
             $password = $login['password_users'];
+            
             if ($password == md5($data['password_users'])) {
                 $_SESSION['logged_in'] = true;
                 $_SESSION['users_id'] = $login['id'];

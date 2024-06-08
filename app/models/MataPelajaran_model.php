@@ -22,7 +22,7 @@ class MataPelajaran_model
         if ($search != null) {
             $sql .= ' WHERE nama_matapelajaran = LIKE :search';
         }
-        $sql .= ' LIMIT 10 SKIP ' . $skip;
+        $sql .= ' LIMIT 10 OFFSET ' . $skip;
         $this->db->query('SELECT * FROM ' . $this->table);
         if ($search != null) {
             $this->db->bind('search', '%' . $search . '%');

@@ -26,10 +26,11 @@
                         <li class="nav-item">
                             <a class="nav-link  <?= Utils::urlNow() == 'PerkembanganNilai' ? 'active' : 'bg-light' ?>" href="<?= BASEURL ?>/PerkembanganNilai">Perkembangan Nilai</a>
                         </li>
-                        
-                        <li class="nav-item">
-                            <a class="nav-link  <?= Utils::urlNow() == 'GrafikKriteria' ? 'active' : 'bg-light' ?>" href="<?= BASEURL ?>/GrafikKriteria">Grafik Kriteria</a>
-                        </li>
+                        <?php if ($namaRoles != 'Orang Tua') { ?>
+                            <li class="nav-item">
+                                <a class="nav-link  <?= Utils::urlNow() == 'GrafikKriteria' ? 'active' : 'bg-light' ?>" href="<?= BASEURL ?>/GrafikKriteria">Grafik Kriteria</a>
+                            </li>
+                        <?php } ?>
                     </ul>
                     <?php
                     if ($data['hasil_akhir'] == null) { ?>

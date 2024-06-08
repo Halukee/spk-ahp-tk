@@ -1,10 +1,10 @@
 <?php
 
-class Siswa_model extends Controller
+class OrangTua_model extends Controller
 {
     private $table = 'users';
     private $db;
-    private $stringDefault = 'SELECT users.*, profile.nama_profile, profile.alamat_profile, profile.jeniskelamin_profile, profile.nomorhp_profile, profile.kode_profile, roles.nama_roles FROM users
+    private $stringDefault = 'SELECT users.*, profile.nama_profile, profile.alamat_profile, profile.jeniskelamin_profile, profile.nomorhp_profile, roles.nama_roles FROM users
     JOIN profile on profile.users_id = users.id
     JOIN role_user on users.id = role_user.users_id
     JOIN roles on roles.id = role_user.roles_id';
@@ -14,41 +14,22 @@ class Siswa_model extends Controller
     JOIN role_user on users.id = role_user.users_id
     JOIN roles on roles.id = role_user.roles_id';
 
-    private $stringMaxKodeProfile = 'SELECT users.*, profile.nama_profile, profile.alamat_profile, profile.jeniskelamin_profile, profile.nomorhp_profile, MAX(SUBSTRING(profile.kode_profile, 2)) AS kode_profile, roles.nama_roles FROM users
-JOIN profile on profile.users_id = users.id
-JOIN role_user on users.id = role_user.users_id
-JOIN roles on roles.id = role_user.roles_id';
-
     public function __construct()
     {
         $this->db = new Database;
     }
 
-    public function getAll($users_id = null)
+    public function getAll()
     {
-        $query = $this->stringDefault . ' WHERE LOWER(roles.nama_roles) = :nama_roles';
-        if ($users_id != null) {
-            $query .= ' AND users.id = :users_id';
-        }
-        $this->db->query($query);
-        $this->db->bind('nama_roles', 'siswa');
-        if ($users_id != null) {
-            $this->db->bind('users_id', $users_id);
-        }
+        $this->db->query($this->stringDefault . ' WHERE LOWER(roles.nama_roles) = :nama_roles');
+        $this->db->bind('nama_roles', 'orang tua');
         return $this->db->resultSet();
     }
 
-    public function countAll($users_id = null)
+    public function countAll()
     {
-        $query = $this->countDefault . ' WHERE LOWER(roles.nama_roles) = :nama_roles';
-        if ($users_id != null) {
-            $query .= ' AND users.id = :users_id';
-        }
-        $this->db->query($query);
-        $this->db->bind('nama_roles', 'siswa');
-        if ($users_id != null) {
-            $this->db->bind('users_id', $users_id);
-        }
+        $this->db->query($this->countDefault . ' WHERE LOWER(roles.nama_roles) = :nama_roles');
+        $this->db->bind('nama_roles', 'orang tua');
         return $this->db->single();
     }
 
@@ -57,28 +38,29 @@ JOIN roles on roles.id = role_user.roles_id';
         $this->db->query($this->stringDefault . ' 
         WHERE LOWER(roles.nama_roles) = :nama_roles
         AND users.id = :id');
-        $this->db->bind('nama_roles', 'siswa');
+        $this->db->bind('nama_roles', 'orang tua');
         $this->db->bind('id', $id);
         return $this->db->single();
     }
 
     public function create($data)
     {
-        $query = "INSERT INTO users (username_users, password_users, email_users)
-        VALUES (:username_users, :password_users, :email_users)";
+        $query = "INSERT INTO users (username_users, password_users, email_users, users_id_siswa)
+        VALUES (:username_users, :password_users, :email_users, :users_id_siswa)";
 
         $this->db->query($query);
         $this->db->bind('username_users', $data['username_users']);
         $this->db->bind('password_users', md5($data['password_users']));
         $this->db->bind('email_users', $data['email_users']);
+        $this->db->bind('users_id_siswa', $data['users_id_siswa']);
         $this->db->execute();
         $users_id = $this->db->lastId();
 
 
         // insert profile
-        $query = "INSERT INTO profile
-        VALUES
-      ('', :nama_profile, :alamat_profile, :jeniskelamin_profile, :nomorhp_profile, :users_id, :kode_profile)";
+        $query = "INSERT INTO profile (nama_profile, alamat_profile, jeniskelamin_profile, nomorhp_profile, users_id)
+        VALUES (:nama_profile, :alamat_profile, :jeniskelamin_profile, :nomorhp_profile, :users_id)";
+
 
         $this->db->query($query);
         $this->db->bind('nama_profile', $data['nama_profile']);
@@ -86,12 +68,11 @@ JOIN roles on roles.id = role_user.roles_id';
         $this->db->bind('jeniskelamin_profile', $data['jeniskelamin_profile']);
         $this->db->bind('nomorhp_profile', $data['nomorhp_profile']);
         $this->db->bind('users_id', $users_id);
-        $this->db->bind('kode_profile', $data['kode_profile']);
         $this->db->execute();
 
         // search role user
         $searchRoles = $this->model('Peran_model');
-        $searchByRole = $searchRoles->getByRoles('siswa');
+        $searchByRole = $searchRoles->getByRoles('orang tua');
         $rolesId = $searchByRole['id'];
 
         // insert role users
@@ -124,8 +105,8 @@ JOIN roles on roles.id = role_user.roles_id';
     {
         $query = "UPDATE users SET 
         username_users = :username_users, 
-        password_users = :password_users, 
-        
+        password_users = :password_users,
+        users_id_siswa = :users_id_siswa,
         email_users = :email_users 
         WHERE id = :id";
 
@@ -136,7 +117,7 @@ JOIN roles on roles.id = role_user.roles_id';
         } else {
             $this->db->bind('password_users', ($data['password_users']));
         }
-
+        $this->db->bind('users_id_siswa', $data['users_id_siswa']);
         $this->db->bind('email_users', $data['email_users']);
         $this->db->bind('id', $id);
         $this->db->execute();
@@ -160,54 +141,5 @@ JOIN roles on roles.id = role_user.roles_id';
         $this->db->execute();
 
         return true;
-    }
-
-    public function getKode()
-    {
-        $this->db->query($this->stringMaxKodeProfile . '  WHERE LOWER(roles.nama_roles) = :nama_roles');
-        $this->db->bind('nama_roles', 'siswa');
-        $maxKode = $this->db->single();
-
-        if ($maxKode) {
-            $nextNumber = intval($maxKode['kode_profile']) + 1;
-            $nextKode = 'A' . sprintf('%03d', $nextNumber);
-        } else {
-            // Jika tidak ada data, kode awal adalah K001
-            $nextKode = 'A001';
-        }
-
-        return $nextKode;
-    }
-
-    public function searchSelect2($search, $skip)
-    {
-        $sql = $this->stringDefault . ' WHERE LOWER(roles.nama_roles) = :nama_roles';
-        if ($search != null) {
-            $sql .= ' WHERE nama_profile = LIKE :search 
-            OR WHERE kode_profile = LIKE :search';
-        }
-        $sql .= ' LIMIT 10 OFFSET ' . $skip;
-
-        $this->db->query($sql);
-        $this->db->bind('nama_roles', 'siswa');
-        if ($search != null) {
-            $this->db->bind('search', '%' . $search . '%');
-        }
-        return $this->db->resultSet();
-    }
-    public function counstSearchSelect2($search)
-    {
-        $sql = $this->countDefault . ' WHERE LOWER(roles.nama_roles) = :nama_roles';
-        if ($search != null) {
-            $sql .= ' WHERE nama_profile = LIKE :search 
-            OR WHERE kode_profile = LIKE :search';
-        }
-        $this->db->query($sql);
-        $this->db->bind('nama_roles', 'siswa');
-        if ($search != null) {
-            $this->db->bind('search', '%' . $search . '%');
-        }
-        $result = $this->db->single();
-        return doubleval($result['total']);
     }
 }

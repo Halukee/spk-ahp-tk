@@ -7,11 +7,11 @@ class Siswa extends Controller
         $utils = new Utils();
         $utils->notLogin();
 
-        $allowMyProfile = ['Guru', 'Admin'];
+        $allowMyProfile = ['Guru', 'Admin', 'Orang Tua'];
         $utils = new Utils();
         $myProfile = $utils->myProfile();
         if (!in_array($myProfile['nama_roles'], $allowMyProfile)) {
-            header("Location: ".BASEURL.'/Page403');
+            header("Location: " . BASEURL . '/Page403');
             exit;
         }
     }
@@ -19,8 +19,18 @@ class Siswa extends Controller
 
     public function dataTables()
     {
+        $utils = new Utils();
+        $myProfile = $utils->myProfile();
+
+        $users_id_siswa = null;
+        $namaRoles = $myProfile['nama_roles'];
+        if ($namaRoles == 'Orang Tua') {
+            $users_id_siswa = $myProfile['users_id_siswa'];
+        }
+
+
         $siswaModel = $this->model('Siswa_model');
-        $dataAll = $siswaModel->getAll();
+        $dataAll = $siswaModel->getAll($users_id_siswa);
         $dataCount = count($dataAll);
         $data = array();
         foreach ($dataAll as $key => $value) {
@@ -110,6 +120,7 @@ class Siswa extends Controller
         $data['row'] = $siswaModel->getById($id);
         $data['kode_profile'] = $siswaModel->getKode();
 
+
         ob_start();
         include_once $this->view('app/siswa/form', $data);
         $content = ob_get_clean();
@@ -149,5 +160,40 @@ class Siswa extends Controller
         } catch (Exception $e) {
             echo json_encode($e->getMessage());
         }
+    }
+    public function select2()
+    {
+        $search = isset($_GET['search']) ? $_GET['search'] : '';
+        $page = $_GET['page'];
+        $limit = 10;
+        $skip = ($page * $limit)  - $limit;
+
+        $results = $this->model('Siswa_model')->searchSelect2($search, $skip);
+        $output = [];
+        $output[] = [
+            'id' => '0',
+            'text' => 'Pilih Semua',
+        ];
+        foreach ($results as $key => $item) {
+            $output[] = [
+                'id' => $item['id'],
+                'text' => '<strong>Nama Siswa: ' . $item['nama_profile'] . '</strong> <br />
+                <span>Kode: ' . $item['kode_profile'] . '</span>',
+            ];
+        }
+
+        // count filtered
+        $countFiltered = $this->model('Siswa_model')->counstSearchSelect2($search);
+
+        echo json_encode([
+            'results' => $output,
+            'count_filtered' => $countFiltered,
+        ]);
+    }
+    public function getUsersById($id)
+    {
+        $siswaModel = $this->model('Siswa_model');
+        $data['row'] = $siswaModel->getById($id);
+        echo json_encode($data);
     }
 }

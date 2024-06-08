@@ -7,7 +7,7 @@ class Absensi extends Controller
         $utils = new Utils();
         $utils->notLogin();
 
-        $allowMyProfile = ['Guru', 'Wali Murid'];
+        $allowMyProfile = ['Guru', 'Wali Murid', 'Orang Tua'];
         $utils = new Utils();
         $myProfile = $utils->myProfile();
         if (!in_array($myProfile['nama_roles'], $allowMyProfile)) {
@@ -19,8 +19,17 @@ class Absensi extends Controller
 
     public function dataTables()
     {
+        $utils = new Utils();
+        $myProfile = $utils->myProfile();
+
+        $users_id_siswa = null;
+        $namaRoles = $myProfile['nama_roles'];
+        if ($namaRoles == 'Orang Tua') {
+            $users_id_siswa = $myProfile['users_id_siswa'];
+        }
+
         $siswaModel = $this->model('Siswa_model');
-        $dataAll = $siswaModel->getAll();
+        $dataAll = $siswaModel->getAll($users_id_siswa);
         $dataCount = count($dataAll);
         $data = array();
         foreach ($dataAll as $key => $value) {
